@@ -14,7 +14,7 @@
                 <p class="footer-social__label">Social</p>
                 <div class="footer-social__links">
                     <a href="https://facebook.com/magnetpeople" target="_blank" rel="noopener">
-                        <?php echo magnet_icon('facebook'); ?> Facebook
+                        <?php echo magnet_icon('facebook'); ?> Facebook!
                     </a>
                     <a href="https://instagram.com/magnetpeople" target="_blank" rel="noopener">
                         <?php echo magnet_icon('instagram'); ?> Instagram
