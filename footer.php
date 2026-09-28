@@ -17,7 +17,7 @@
                         <?php echo magnet_icon('facebook'); ?> Facebook!
                     </a>
                     <a href="https://instagram.com/magnetpeople" target="_blank" rel="noopener">
-                        <?php echo magnet_icon('instagram'); ?> Instagram
+                        <?php echo magnet_icon('instagram'); ?> Instagram!
                     </a>
                     <a href="https://linkedin.com/company/magnetpeople" target="_blank" rel="noopener">
                         <?php echo magnet_icon('linkedin'); ?> Linkedin
