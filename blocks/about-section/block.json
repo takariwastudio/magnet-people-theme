@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/about-section",
+  "title": "Magnet About Section",
+  "description": "Sección informativa con hasta 3 columnas de imagen, título y texto.",
+  "category": "magnet",
+  "icon": "groups",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "blocks/about-section/render.php"
+  },
+  "supports": { "anchor": true },
+  "example": {}
+}

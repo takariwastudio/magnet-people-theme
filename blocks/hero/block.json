@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/hero",
+  "title": "Magnet Hero",
+  "description": "Hero principal con título, subtítulo, botón CTA y decoraciones.",
+  "category": "magnet",
+  "icon": "cover-image",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "blocks/hero/render.php"
+  },
+  "supports": { "anchor": true, "align": ["full"] },
+  "example": {}
+}

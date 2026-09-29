@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/cta-banner",
+  "title": "Magnet CTA Banner",
+  "description": "Banner de llamada a la acción con título, botón y color de fondo configurable.",
+  "category": "magnet",
+  "icon": "megaphone",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "blocks/cta-banner/render.php"
+  },
+  "supports": { "anchor": true },
+  "example": {}
+}

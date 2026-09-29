@@ -1,0 +1,50 @@
+/* =============================================
+   Block: magnet/cta-banner
+   ============================================= */
+
+.magnet-cta {
+  padding: 60px 0;
+}
+.magnet-cta__inner {
+  border-radius: 32px;
+  padding: 52px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.magnet-cta__title {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 800;
+  max-width: 420px;
+  line-height: 1.25;
+}
+.magnet-cta__bolt {
+  position: absolute;
+  bottom: -10px;
+  left: 48px;
+  width: 60px;
+  color: #e31e24;
+  opacity: 0.9;
+}
+.magnet-cta__bolt svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .magnet-cta__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 36px 28px 40px;
+    gap: 24px;
+  }
+  .magnet-cta__title {
+    max-width: 100%;
+  }
+  .magnet-cta__bolt {
+    left: 28px;
+  }
+}

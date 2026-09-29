@@ -1,0 +1,106 @@
+/* =============================================
+   Block: magnet/hero
+   ============================================= */
+
+.magnet-hero {
+  background: var(--hero-bg, #d8e4ec);
+  padding: 80px 0 60px;
+  overflow: hidden;
+}
+.magnet-hero__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: 420px;
+}
+.magnet-hero__content {
+  max-width: 520px;
+  flex-shrink: 0;
+}
+.magnet-hero__title {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+.magnet-hero__subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--black);
+  opacity: 0.75;
+  margin-bottom: 32px;
+  max-width: 420px;
+}
+
+/* Deco container */
+.magnet-hero__deco {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  flex-shrink: 0;
+}
+.magnet-hero__deco-magnet,
+.magnet-hero__deco-heart,
+.magnet-hero__deco-bubble,
+.magnet-hero__deco-like,
+.magnet-hero__deco-bolt1,
+.magnet-hero__deco-bolt2 {
+  position: absolute;
+}
+.magnet-hero__deco-magnet {
+  width: 180px;
+  right: -60px;
+  bottom: -60px;
+  opacity: 0.18;
+}
+.magnet-hero__deco-heart {
+  width: 48px;
+  top: 40px;
+  right: 60px;
+}
+.magnet-hero__deco-bubble {
+  width: 64px;
+  top: 20px;
+  left: 40px;
+}
+.magnet-hero__deco-like {
+  width: 52px;
+  bottom: 80px;
+  left: 20px;
+}
+.magnet-hero__deco-bolt1 {
+  width: 28px;
+  top: 100px;
+  right: 20px;
+  color: #e31e24;
+  opacity: 0.6;
+}
+.magnet-hero__deco-bolt2 {
+  width: 20px;
+  bottom: 120px;
+  right: 80px;
+  color: #1a1a1a;
+  opacity: 0.3;
+}
+.magnet-hero__deco svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .magnet-hero__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+  }
+  .magnet-hero__deco {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .magnet-hero {
+    padding: 48px 0 40px;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/posts-grid",
+  "title": "Magnet Posts Grid",
+  "description": "Grilla de posts recientes con soporte para membresía PMPro.",
+  "category": "magnet",
+  "icon": "grid-view",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "blocks/posts-grid/render.php"
+  },
+  "supports": { "anchor": true },
+  "example": {}
+}
