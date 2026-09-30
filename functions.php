@@ -182,3 +182,11 @@ function magnet_icon($name, $class = '') {
     }
     return $svg;
 }
+
+// DEBUG TEMPORAL — borrar después
+add_action('init', function() {
+    if (function_exists('acf_add_local_field_group') && current_user_can('administrator')) {
+        $groups = acf_get_local_field_groups();
+        error_log('ACF local groups: ' . print_r(array_column($groups, 'key'), true));
+    }
+});
