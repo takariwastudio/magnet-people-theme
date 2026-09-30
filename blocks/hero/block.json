@@ -7,7 +7,7 @@
   "category": "magnet",
   "icon": "cover-image",
   "acf": {
-    "mode": "preview",
+    "mode": "auto",
     "renderTemplate": "blocks/hero/render.php"
   },
   "supports": { "anchor": true, "align": ["full"] },
