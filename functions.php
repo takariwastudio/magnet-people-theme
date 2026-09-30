@@ -4,7 +4,6 @@
  * Takariwa Studio
  */
 
-// Soporte del tema
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
@@ -25,7 +24,6 @@ add_action('after_setup_theme', function () {
     ]);
 });
 
-// Enqueue
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
         'magnet-fonts',
@@ -46,18 +44,15 @@ add_action('wp_enqueue_scripts', function () {
         '2.0.0',
         true
     );
-
     wp_localize_script('magnet-main', 'magnetData', [
         'joinUrl'  => home_url('/membresia/'),
         'loginUrl' => wp_login_url(),
     ]);
 });
 
-// Excerpt
 add_filter('excerpt_length', fn() => 20);
 add_filter('excerpt_more', fn() => '');
 
-// Helpers
 function magnet_is_paid_post($post_id = null) {
     if (!$post_id) $post_id = get_the_ID();
     if (!function_exists('pmpro_has_membership_access')) return false;
@@ -81,14 +76,27 @@ add_action('acf/init', function () {
         return $cats;
     });
 
-    $blocks = ['hero', 'about-section', 'posts-grid', 'cta-banner'];
-    foreach ($blocks as $block) {
-        $json = get_template_directory() . '/blocks/' . $block . '/block.json';
-        if (file_exists($json)) {
-            acf_register_block_type(json_decode(file_get_contents($json), true) + [
-                'enqueue_style' => get_template_directory_uri() . '/blocks/' . $block . '/style.css',
-            ]);
-        }
+    $blocks = [
+        'hero'          => 'Magnet Hero',
+        'about-section' => 'Magnet About Section',
+        'posts-grid'    => 'Magnet Posts Grid',
+        'cta-banner'    => 'Magnet CTA Banner',
+    ];
+
+    foreach ($blocks as $slug => $title) {
+        $render = get_template_directory() . '/blocks/' . $slug . '/render.php';
+        $style  = get_template_directory_uri() . '/blocks/' . $slug . '/style.css';
+
+        acf_register_block_type([
+            'name'            => $slug,
+            'title'           => $title,
+            'category'        => 'magnet',
+            'icon'            => 'layout',
+            'mode'            => 'auto',
+            'render_template' => $render,
+            'enqueue_style'   => $style,
+            'supports'        => ['anchor' => true],
+        ]);
     }
 });
 
@@ -97,7 +105,6 @@ add_action('acf/init', 'magnet_register_acf_fields');
 function magnet_register_acf_fields() {
     if (!function_exists('acf_add_local_field_group')) return;
 
-    // HERO
     acf_add_local_field_group([
         'key'      => 'group_magnet_hero',
         'title'    => 'Hero',
@@ -112,7 +119,6 @@ function magnet_register_acf_fields() {
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/hero']]],
     ]);
 
-    // ABOUT SECTION
     acf_add_local_field_group([
         'key'    => 'group_magnet_about',
         'title'  => 'About Section',
@@ -136,7 +142,6 @@ function magnet_register_acf_fields() {
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/about-section']]],
     ]);
 
-    // POSTS GRID
     acf_add_local_field_group([
         'key'    => 'group_magnet_posts_grid',
         'title'  => 'Posts Grid',
@@ -150,7 +155,6 @@ function magnet_register_acf_fields() {
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/posts-grid']]],
     ]);
 
-    // CTA BANNER
     acf_add_local_field_group([
         'key'    => 'group_magnet_cta',
         'title'  => 'CTA Banner',
@@ -182,11 +186,3 @@ function magnet_icon($name, $class = '') {
     }
     return $svg;
 }
-
-// DEBUG TEMPORAL — borrar después
-add_action('init', function() {
-    if (function_exists('acf_add_local_field_group') && current_user_can('administrator')) {
-        $groups = acf_get_local_field_groups();
-        error_log('ACF local groups: ' . print_r(array_column($groups, 'key'), true));
-    }
-});
