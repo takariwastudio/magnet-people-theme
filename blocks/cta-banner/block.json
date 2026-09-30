@@ -7,7 +7,7 @@
   "category": "magnet",
   "icon": "megaphone",
   "acf": {
-    "mode": "edit",
+    "mode": "preview",
     "renderTemplate": "blocks/cta-banner/render.php"
   },
   "supports": { "anchor": true },

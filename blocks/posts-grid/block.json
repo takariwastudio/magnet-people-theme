@@ -7,7 +7,7 @@
   "category": "magnet",
   "icon": "grid-view",
   "acf": {
-    "mode": "edit",
+    "mode": "preview",
     "renderTemplate": "blocks/posts-grid/render.php"
   },
   "supports": { "anchor": true },

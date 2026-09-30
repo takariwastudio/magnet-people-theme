@@ -7,7 +7,7 @@
   "category": "magnet",
   "icon": "groups",
   "acf": {
-    "mode": "edit",
+    "mode": "preview",
     "renderTemplate": "blocks/about-section/render.php"
   },
   "supports": { "anchor": true },
