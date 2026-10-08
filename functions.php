@@ -121,16 +121,28 @@ function magnet_register_acf_fields() {
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/hero']]],
     ]);
 
-    // About Section — un bloque por columna, se repite 3 veces en el homepage
+    // About Section — un bloque, hasta 3 columnas vía repeater
     acf_add_local_field_group([
         'key'    => 'group_magnet_about',
         'title'  => 'About Section',
         'fields' => [
-            ['key'=>'field_about_image',       'label'=>'Imagen',          'name'=>'about_image',       'type'=>'image',    'return_format'=>'url', 'preview_size'=>'medium'],
-            ['key'=>'field_about_title',       'label'=>'Título',          'name'=>'about_title',       'type'=>'text'],
-            ['key'=>'field_about_description', 'label'=>'Descripción',     'name'=>'about_description', 'type'=>'textarea', 'rows'=>4],
-            ['key'=>'field_about_btn_text',    'label'=>'Texto del botón', 'name'=>'about_btn_text',    'type'=>'text'],
-            ['key'=>'field_about_btn_url',     'label'=>'URL del botón',   'name'=>'about_btn_url',     'type'=>'url'],
+            [
+                'key'          => 'field_about_columns',
+                'label'        => 'Columnas',
+                'name'         => 'about_columns',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'max'          => 3,
+                'layout'       => 'block',
+                'button_label' => 'Agregar columna',
+                'sub_fields'   => [
+                    ['key'=>'field_col_image',    'label'=>'Imagen',          'name'=>'col_image',    'type'=>'image',    'return_format'=>'url', 'preview_size'=>'medium'],
+                    ['key'=>'field_col_title',    'label'=>'Título',          'name'=>'col_title',    'type'=>'text'],
+                    ['key'=>'field_col_desc',     'label'=>'Descripción',     'name'=>'col_desc',     'type'=>'textarea', 'rows'=>4],
+                    ['key'=>'field_col_btn_text', 'label'=>'Texto del botón', 'name'=>'col_btn_text', 'type'=>'text'],
+                    ['key'=>'field_col_btn_url',  'label'=>'URL del botón',   'name'=>'col_btn_url',  'type'=>'url'],
+                ],
+            ],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/about-section']]],
     ]);

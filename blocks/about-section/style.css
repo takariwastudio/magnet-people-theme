@@ -3,27 +3,47 @@
    Magnet People v2 — Takariwa Studio
    ============================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Nunito:wght@600&display=swap");
+.magnet-about {
+  padding: 72px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-.magnet-about-section {
+/* Grid de columnas */
+.magnet-about__grid {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.magnet-about--cols-2 .magnet-about__grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.magnet-about--cols-3 .magnet-about__grid {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Columna individual */
+.magnet-about__col {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100%;
-  max-width: 379px;
-  margin: 0 auto;
 }
 
 /* Imagen */
 .magnet-about__image {
-  width: 379px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 379px;
   height: 300px;
   border-radius: 25px;
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
 /* Título */
@@ -45,17 +65,19 @@
   margin: 10px 0;
   color: #1a1a1a;
   text-align: center;
+  flex-grow: 1;
 }
 
-/* Botón */
+/* Botón — empuja hacia abajo con margin-top: auto para alinear todos al mismo nivel */
 .magnet-about__btn {
   display: inline-block;
   font-family: "Nunito", sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: 30px;
-  margin: 90px 0 0;
+  margin: auto 0 0;
   padding: 10px 34px;
+  margin-top: 90px;
   text-align: center;
   background-color: #dc2327;
   color: #ffffff;
@@ -71,13 +93,22 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .magnet-about-section {
-    max-width: 100%;
+@media (max-width: 900px) {
+  .magnet-about--cols-3 .magnet-about__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .magnet-about__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .magnet-about {
+    padding: 48px 16px;
   }
 
   .magnet-about__image {
-    width: 100%;
     height: 240px;
   }
 
