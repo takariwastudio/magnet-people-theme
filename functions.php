@@ -115,6 +115,7 @@ function magnet_register_acf_fields() {
             ['key'=>'field_hero_btn_url',   'label'=>'URL del botón',        'name'=>'hero_btn_url',   'type'=>'url'],
             ['key'=>'field_hero_bg_color',  'label'=>'Color de fondo',       'name'=>'hero_bg_color',  'type'=>'color_picker', 'default_value'=>'#D8E4EC'],
             ['key'=>'field_hero_show_deco', 'label'=>'Mostrar ilustraciones','name'=>'hero_show_deco', 'type'=>'true_false', 'default_value'=>1, 'ui'=>1],
+            ['key'=>'field_hero_bg_image', 'label'=>'Imagen de fondo', 'name'=>'hero_bg_image', 'type'=>'url', 'instructions'=>'URL de la imagen (pega la URL de Media Library)'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/hero']]],
     ]);

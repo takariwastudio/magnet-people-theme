@@ -89,6 +89,12 @@
   height: auto;
 }
 
+.magnet-hero--has-image {
+  background-image: var(--hero-bg-image);
+  background-size: cover;
+  background-position: center;
+}
+
 @media (max-width: 768px) {
   .magnet-hero__inner {
     flex-direction: column;
