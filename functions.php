@@ -27,7 +27,7 @@ add_action('after_setup_theme', function () {
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
         'magnet-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Nunito:wght@600&display=swap',
         [],
         null
     );
@@ -105,6 +105,7 @@ add_action('acf/init', 'magnet_register_acf_fields');
 function magnet_register_acf_fields() {
     if (!function_exists('acf_add_local_field_group')) return;
 
+    // Hero
     acf_add_local_field_group([
         'key'      => 'group_magnet_hero',
         'title'    => 'Hero',
@@ -115,34 +116,26 @@ function magnet_register_acf_fields() {
             ['key'=>'field_hero_btn_url',   'label'=>'URL del botón',        'name'=>'hero_btn_url',   'type'=>'url'],
             ['key'=>'field_hero_bg_color',  'label'=>'Color de fondo',       'name'=>'hero_bg_color',  'type'=>'color_picker', 'default_value'=>'#D8E4EC'],
             ['key'=>'field_hero_show_deco', 'label'=>'Mostrar ilustraciones','name'=>'hero_show_deco', 'type'=>'true_false', 'default_value'=>1, 'ui'=>1],
-            ['key'=>'field_hero_bg_image', 'label'=>'Imagen de fondo', 'name'=>'hero_bg_image', 'type'=>'url', 'instructions'=>'Pega la URL de la imagen desde Media Library'],
+            ['key'=>'field_hero_bg_image',  'label'=>'Imagen de fondo',      'name'=>'hero_bg_image',  'type'=>'url', 'instructions'=>'Pega la URL de la imagen desde Media Library'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/hero']]],
     ]);
 
+    // About Section — un bloque por columna, se repite 3 veces en el homepage
     acf_add_local_field_group([
         'key'    => 'group_magnet_about',
         'title'  => 'About Section',
         'fields' => [
-            [
-                'key'          => 'field_about_columns',
-                'label'        => 'Columnas',
-                'name'         => 'about_columns',
-                'type'         => 'repeater',
-                'min'          => 1,
-                'max'          => 3,
-                'layout'       => 'block',
-                'button_label' => 'Agregar columna',
-                'sub_fields'   => [
-                    ['key'=>'field_col_image', 'label'=>'Imagen', 'name'=>'column_image', 'type'=>'image',   'return_format'=>'url', 'preview_size'=>'medium'],
-                    ['key'=>'field_col_title', 'label'=>'Título', 'name'=>'column_title', 'type'=>'text'],
-                    ['key'=>'field_col_text',  'label'=>'Texto',  'name'=>'column_text',  'type'=>'wysiwyg', 'toolbar'=>'basic', 'media_upload'=>0, 'delay'=>1],
-                ],
-            ],
+            ['key'=>'field_about_image',       'label'=>'Imagen',          'name'=>'about_image',       'type'=>'image',    'return_format'=>'url', 'preview_size'=>'medium'],
+            ['key'=>'field_about_title',       'label'=>'Título',          'name'=>'about_title',       'type'=>'text'],
+            ['key'=>'field_about_description', 'label'=>'Descripción',     'name'=>'about_description', 'type'=>'textarea', 'rows'=>4],
+            ['key'=>'field_about_btn_text',    'label'=>'Texto del botón', 'name'=>'about_btn_text',    'type'=>'text'],
+            ['key'=>'field_about_btn_url',     'label'=>'URL del botón',   'name'=>'about_btn_url',     'type'=>'url'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/about-section']]],
     ]);
 
+    // Posts Grid
     acf_add_local_field_group([
         'key'    => 'group_magnet_posts_grid',
         'title'  => 'Posts Grid',
@@ -156,6 +149,7 @@ function magnet_register_acf_fields() {
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/posts-grid']]],
     ]);
 
+    // CTA Banner
     acf_add_local_field_group([
         'key'    => 'group_magnet_cta',
         'title'  => 'CTA Banner',

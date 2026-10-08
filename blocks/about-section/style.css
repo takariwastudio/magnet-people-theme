@@ -1,83 +1,97 @@
 /* =============================================
    Block: magnet/about-section
+   Magnet People v2 — Takariwa Studio
    ============================================= */
 
-.magnet-about {
-  padding: 72px 0;
-}
-.magnet-about__images,
-.magnet-about__texts {
-  display: grid;
-  gap: 24px;
-}
-.magnet-about--cols-1 .magnet-about__images,
-.magnet-about--cols-1 .magnet-about__texts {
-  grid-template-columns: 1fr;
-}
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Nunito:wght@600&display=swap");
 
-.magnet-about--cols-2 .magnet-about__images,
-.magnet-about--cols-2 .magnet-about__texts {
-  grid-template-columns: 1fr 1fr;
-}
-
-.magnet-about--cols-3 .magnet-about__images,
-.magnet-about--cols-3 .magnet-about__texts {
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.magnet-about__images {
-  margin-bottom: 32px;
-}
-
-.magnet-about__img-wrap {
-  border-radius: 20px;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  background: #e5e5e5;
-}
-.magnet-about__img-wrap img {
+.magnet-about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.magnet-about__img-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #e0e7ef 0%, #c8d8e8 100%);
+  max-width: 379px;
+  margin: 0 auto;
 }
 
-.magnet-about__col-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--black);
-  margin-bottom: 12px;
-}
-.magnet-about__col-text {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--black);
-  opacity: 0.75;
-}
-.magnet-about__col-text p {
-  margin: 0 0 0.75em;
-}
-.magnet-about__col-text p:last-child {
-  margin-bottom: 0;
+/* Imagen */
+.magnet-about__image {
+  width: 379px;
+  max-width: 100%;
+  height: 300px;
+  border-radius: 25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
+/* Título */
+.magnet-about__title {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 35px;
+  line-height: 45.5px;
+  margin: 10px 0;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* Descripción */
+.magnet-about__description {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  margin: 10px 0;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* Botón */
+.magnet-about__btn {
+  display: inline-block;
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  margin: 90px 0 0;
+  padding: 10px 34px;
+  text-align: center;
+  background-color: #dc2327;
+  color: #ffffff;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.magnet-about__btn:hover,
+.magnet-about__btn:focus {
+  opacity: 0.85;
+  color: #ffffff;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .magnet-about--cols-3 .magnet-about__images,
-  .magnet-about--cols-3 .magnet-about__texts {
-    grid-template-columns: 1fr 1fr;
+  .magnet-about-section {
+    max-width: 100%;
   }
-}
-@media (max-width: 540px) {
-  .magnet-about__images,
-  .magnet-about__texts {
-    grid-template-columns: 1fr !important;
+
+  .magnet-about__image {
+    width: 100%;
+    height: 240px;
   }
-  .magnet-about {
-    padding: 48px 0;
+
+  .magnet-about__title {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .magnet-about__description {
+    font-size: 17px;
+    line-height: 26px;
+  }
+
+  .magnet-about__btn {
+    margin-top: 40px;
   }
 }

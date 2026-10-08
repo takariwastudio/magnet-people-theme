@@ -1,67 +1,58 @@
 <?php
 /**
  * Block: magnet/about-section
- * Campo ACF:
- *   about_columns — repeater (max 3)
- *     column_image — image (url)
- *     column_title — text
- *     column_text  — wysiwyg
+ * Magnet People v2 — Takariwa Studio
+ *
+ * Campos ACF:
+ *   about_image       — image (return: url)
+ *   about_title       — text
+ *   about_description — textarea
+ *   about_btn_text    — text
+ *   about_btn_url     — url
  */
 
-$columns = get_field('about_columns') ?: [];
-$count   = count($columns);
+$image       = get_field('about_image')       ?: '';
+$title       = get_field('about_title')       ?: '';
+$description = get_field('about_description') ?: '';
+$btn_text    = get_field('about_btn_text')    ?: '';
+$btn_url     = get_field('about_btn_url')     ?: '#';
 
 $block_id    = 'about-' . $block['id'];
-$extra_class = isset($block['className']) ? ' ' . $block['className'] : '';
+$extra_class = isset($block['className']) ? ' ' . esc_attr($block['className']) : '';
 
-if (empty($columns) && (is_admin() || defined('REST_REQUEST'))) : ?>
-    <div class="magnet-about magnet-about--empty">
+if ( ! $title && ! $image && ( is_admin() || defined('REST_REQUEST') ) ) : ?>
+    <div class="magnet-about-section magnet-about-section--empty">
         <p style="text-align:center;padding:40px;color:#999;">
-            Agrega columnas desde el panel de campos ACF →
+            Completa los campos del bloque →
         </p>
     </div>
 <?php return;
 endif;
 ?>
 
-<section id="<?php echo esc_attr($block_id); ?>"
-         class="magnet-about magnet-about--cols-<?php echo $count; ?><?php echo esc_attr($extra_class); ?>">
-    <div class="container">
+<div id="<?php echo esc_attr( $block_id ); ?>" class="magnet-about-section<?php echo $extra_class; ?>">
 
-        <!-- Fila de imágenes -->
-        <div class="magnet-about__images">
-            <?php foreach ($columns as $col) :
-                $img = $col['column_image'] ?? '';
-            ?>
-                <div class="magnet-about__img-wrap">
-                    <?php if ($img) : ?>
-                        <img src="<?php echo esc_url($img); ?>"
-                             alt="<?php echo esc_attr($col['column_title'] ?? ''); ?>"
-                             loading="lazy">
-                    <?php else : ?>
-                        <div class="magnet-about__img-placeholder"></div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
+    <?php if ( $image ) : ?>
+    <div
+        class="magnet-about__image"
+        role="img"
+        aria-label="<?php echo esc_attr( $title ); ?>"
+        style="background-image: url('<?php echo esc_url( $image ); ?>');"
+    ></div>
+    <?php endif; ?>
 
-        <!-- Fila de textos -->
-        <div class="magnet-about__texts">
-            <?php foreach ($columns as $col) : ?>
-                <div class="magnet-about__col">
-                    <?php if (!empty($col['column_title'])) : ?>
-                        <h3 class="magnet-about__col-title">
-                            <?php echo esc_html($col['column_title']); ?>
-                        </h3>
-                    <?php endif; ?>
-                    <?php if (!empty($col['column_text'])) : ?>
-                        <div class="magnet-about__col-text">
-                            <?php echo wp_kses_post($col['column_text']); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
+    <?php if ( $title ) : ?>
+    <h2 class="magnet-about__title"><?php echo esc_html( $title ); ?></h2>
+    <?php endif; ?>
 
-    </div>
-</section>
+    <?php if ( $description ) : ?>
+    <p class="magnet-about__description"><?php echo nl2br( esc_html( $description ) ); ?></p>
+    <?php endif; ?>
+
+    <?php if ( $btn_text ) : ?>
+    <a href="<?php echo esc_url( $btn_url ); ?>" class="magnet-about__btn">
+        <?php echo esc_html( $btn_text ); ?>
+    </a>
+    <?php endif; ?>
+
+</div>
