@@ -13,24 +13,24 @@
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 32px;
-  padding: 48px 64px 48px 200px; /* padding-left grande para que el rayo quede a la izq del texto */
+  padding: 48px 64px 48px 180px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
   position: relative;
-  overflow: visible; /* permite que el rayo sobresalga */
+  overflow: visible;
   box-sizing: border-box;
   min-height: 140px;
 }
 
-/* Rayo decorativo — sobresale por arriba y abajo */
+/* Rayo — esquina inferior izquierda, pequeño, sobresale solo abajo */
 .magnet-cta__bolt {
   position: absolute;
-  bottom: -20px;
-  left: 40px;
-  width: auto;
-  height: calc(100% + 40px); /* sobresale 20px arriba y 20px abajo */
+  bottom: -16px; /* sobresale 16px por debajo */
+  left: 32px;
+  width: 80px; /* tamaño contenido */
+  height: auto;
   pointer-events: none;
   user-select: none;
   z-index: 2;
@@ -38,13 +38,12 @@
 
 .magnet-cta__bolt img {
   display: block;
-  height: 100%;
-  width: auto;
+  width: 100%;
+  height: auto;
   object-fit: contain;
-  object-position: bottom left;
 }
 
-/* Título — ocupa todo el espacio disponible */
+/* Título */
 .magnet-cta__title {
   font-family: "Nunito Sans", sans-serif;
   font-size: clamp(1.25rem, 2vw, 1.75rem);
@@ -55,7 +54,7 @@
   color: inherit;
 }
 
-/* Botón — fondo rojo, nunca transparente */
+/* Botón */
 .magnet-cta__btn {
   display: inline-block;
   flex-shrink: 0;
@@ -85,7 +84,7 @@
   .magnet-cta__inner {
     flex-direction: column;
     align-items: flex-start;
-    padding: 40px 32px 40px 32px;
+    padding: 40px 32px;
     gap: 24px;
     overflow: hidden;
   }
