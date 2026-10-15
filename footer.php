@@ -1,3 +1,10 @@
+<?php
+/**
+ * footer.php — Magnet People v2
+ * Takariwa Studio
+ */
+?>
+
 <footer class="site-footer">
     <div class="container">
 
@@ -8,22 +15,6 @@
                 <?php if (has_custom_logo()) : the_custom_logo();
                 else : ?>magnet<?php endif; ?>
             </a>
-
-            <!-- Social -->
-            <div class="footer-social">
-                <p class="footer-social__label">Social</p>
-                <div class="footer-social__links">
-                    <a href="https://facebook.com/magnetpeople" target="_blank" rel="noopener">
-                        <?php echo magnet_icon('facebook'); ?> Facebook
-                    </a>
-                    <a href="https://instagram.com/magnetpeople" target="_blank" rel="noopener">
-                        <?php echo magnet_icon('instagram'); ?> Instagram
-                    </a>
-                    <a href="https://linkedin.com/company/magnetpeople" target="_blank" rel="noopener">
-                        <?php echo magnet_icon('linkedin'); ?> Linkedin
-                    </a>
-                </div>
-            </div>
 
             <!-- Nav footer -->
             <nav class="footer-nav" aria-label="Menú footer">
@@ -44,6 +35,21 @@
                 ]); ?>
             </nav>
 
+            <!-- Social -->
+            <div class="footer-social">
+                <div class="footer-social__links">
+                    <a href="https://facebook.com/magnetpeople" target="_blank" rel="noopener">
+                        <?php echo magnet_icon('facebook'); ?>
+                    </a>
+                    <a href="https://instagram.com/magnetpeople" target="_blank" rel="noopener">
+                        <?php echo magnet_icon('instagram'); ?>
+                    </a>
+                    <a href="https://linkedin.com/company/magnetpeople" target="_blank" rel="noopener">
+                        <?php echo magnet_icon('linkedin'); ?>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <div class="site-footer__bottom">
@@ -54,6 +60,13 @@
 
     </div>
 </footer>
+
+<?php if (!is_user_logged_in()) : ?>
+<a href="<?php echo esc_url(home_url('/membresia/')); ?>" class="signup-float" aria-label="Get Access">
+    <?php echo magnet_icon('user', 'signup-float__icon'); ?>
+    <span>Signup</span>
+</a>
+<?php endif; ?>
 
 <?php wp_footer(); ?>
 </body>
