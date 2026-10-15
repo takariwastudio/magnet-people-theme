@@ -13,26 +13,27 @@
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 32px;
-  padding: 56px 64px;
+  padding: 48px 64px 48px 200px; /* padding-left grande para que el rayo quede a la izq del texto */
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* permite que el rayo sobresalga */
   box-sizing: border-box;
+  min-height: 140px;
 }
 
-/* Rayo decorativo — esquina inferior izquierda */
+/* Rayo decorativo — sobresale por arriba y abajo */
 .magnet-cta__bolt {
   position: absolute;
-  bottom: 0;
+  bottom: -20px;
   left: 40px;
   width: auto;
-  height: 100%;
-  max-height: 140px;
+  height: calc(100% + 40px); /* sobresale 20px arriba y 20px abajo */
   pointer-events: none;
   user-select: none;
+  z-index: 2;
 }
 
 .magnet-cta__bolt img {
@@ -43,37 +44,40 @@
   object-position: bottom left;
 }
 
-/* Título */
+/* Título — ocupa todo el espacio disponible */
 .magnet-cta__title {
   font-family: "Nunito Sans", sans-serif;
-  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: 800;
   line-height: 1.3;
   margin: 0;
   flex: 1;
+  color: inherit;
 }
 
-/* Botón */
+/* Botón — fondo rojo, nunca transparente */
 .magnet-cta__btn {
   display: inline-block;
   flex-shrink: 0;
   font-family: "Nunito", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 30px;
-  padding: 10px 48px;
+  line-height: 1;
+  padding: 14px 40px;
   background-color: #dc2327;
-  color: #ffffff;
+  color: #ffffff !important;
   border-radius: 100px;
   text-decoration: none;
   transition: opacity 0.2s ease;
   white-space: nowrap;
+  border: none;
 }
 
 .magnet-cta__btn:hover,
 .magnet-cta__btn:focus {
   opacity: 0.85;
-  color: #ffffff;
+  color: #ffffff !important;
+  text-decoration: none;
 }
 
 /* Responsive */
@@ -81,9 +85,9 @@
   .magnet-cta__inner {
     flex-direction: column;
     align-items: flex-start;
-    padding: 40px 32px;
-    text-align: left;
+    padding: 40px 32px 40px 32px;
     gap: 24px;
+    overflow: hidden;
   }
 
   .magnet-cta__bolt {
@@ -93,7 +97,6 @@
   .magnet-cta__btn {
     width: 100%;
     text-align: center;
-    padding: 12px 32px;
   }
 }
 
@@ -103,11 +106,7 @@
   }
 
   .magnet-cta__inner {
-    padding: 32px 24px;
-    border-radius: 24px;
-  }
-
-  .magnet-cta__title {
-    font-size: 1.125rem;
+    padding: 32px 20px;
+    border-radius: 20px;
   }
 }
