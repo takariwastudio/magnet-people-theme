@@ -171,7 +171,7 @@ function magnet_register_acf_fields() {
             ['key'=>'field_cta_btn_url',    'label'=>'URL botón',         'name'=>'cta_btn_url',    'type'=>'url'],
             ['key'=>'field_cta_bg_color',   'label'=>'Color de fondo',    'name'=>'cta_bg_color',   'type'=>'color_picker', 'default_value'=>'#D6E8F5'],
             ['key'=>'field_cta_text_color', 'label'=>'Color de texto',    'name'=>'cta_text_color', 'type'=>'color_picker', 'default_value'=>'#1A1A1A'],
-            ['key'=>'field_cta_show_bolt',  'label'=>'Mostrar rayo deco', 'name'=>'cta_show_bolt',  'type'=>'true_false', 'default_value'=>1, 'ui'=>1],
+            ['key'=>'field_cta_bolt_image', 'label'=>'Imagen del rayo (decorativo)', 'name'=>'cta_bolt_image', 'type'=>'image', 'return_format'=>'url', 'preview_size'=>'medium'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/cta-banner']]],
     ]);
