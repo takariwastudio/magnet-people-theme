@@ -1,9 +1,136 @@
 /* =============================================
    Block: magnet/people-grid
    Magnet People v2 — Takariwa Studio
-   Hereda grid, cards y botón de posts-grid/style.css
+   Hereda título y botón de posts-grid/style.css
    ============================================= */
 
+.magnet-people-grid {
+  --people-gap: 40px;
+}
+
+/* Cada carga es un grupo; las filas incompletas (ej. 3 / 3 / 2) quedan centradas */
+.people-grid__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--people-gap);
+}
+
+.people-batch {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--people-gap);
+}
+
+/* ── Card ── */
+.people-card {
+  flex: 0 0 calc((100% - 2 * var(--people-gap)) / 3);
+  aspect-ratio: 9 / 10;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+  background: #2a2a2a;
+}
+
+.people-card__link {
+  display: block;
+  position: absolute;
+  inset: 0;
+  text-decoration: none;
+  color: #fff;
+}
+
+.people-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%; /* prioriza rostros en fotos verticales */
+  transition: transform 0.4s ease;
+}
+
+.people-card__link:hover .people-card__img {
+  transform: scale(1.04);
+}
+
+/* Overlay: velo general + degradado inferior para el texto */
+.people-card__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.55) 100%),
+    rgba(0, 0, 0, 0.28);
+  transition: background-color 0.3s ease;
+}
+
+.people-card--no-image .people-card__overlay {
+  background: none;
+}
+
+/* Candado — esquina superior derecha */
+.people-card__lock {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.people-card__lock-icon {
+  width: 16px;
+  height: 16px;
+  color: #fff;
+}
+
+/* Texto */
+.people-card__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 32px 34px;
+  z-index: 2;
+}
+
+.people-card__title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+  margin: 0 0 14px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+.people-card__author {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 14px;
+}
+
+.people-card__cat {
+  display: inline-block;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  padding: 5px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 100px;
+}
+
+/* ── Botón Load More ── */
 .magnet-people-grid__btn {
   border: 0;
   cursor: pointer;
@@ -14,8 +141,8 @@
   cursor: wait;
 }
 
-/* Entrada suave de las cards nuevas */
-.magnet-people-grid .post-card.is-new {
+/* Entrada suave del grupo nuevo */
+.people-batch.is-new {
   animation: magnet-people-fade-in 0.4s ease both;
 }
 
@@ -25,7 +152,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .magnet-people-grid .post-card.is-new {
-    animation: none;
+  .people-batch.is-new { animation: none; }
+  .people-card__img { transition: none; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .magnet-people-grid { --people-gap: 24px; }
+  .people-card {
+    flex-basis: calc((100% - var(--people-gap)) / 2);
+    border-radius: 32px;
   }
+  .people-card__body { padding: 0 24px 26px; }
+}
+
+@media (max-width: 560px) {
+  .people-card { flex-basis: 100%; }
 }

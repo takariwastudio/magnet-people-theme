@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const tpl = document.createElement('template');
                 tpl.innerHTML = json.data.html;
-                tpl.content.querySelectorAll('.post-card').forEach((card) => card.classList.add('is-new'));
+                tpl.content.querySelectorAll('.people-batch').forEach((batch) => batch.classList.add('is-new'));
                 list.appendChild(tpl.content);
 
                 btn.dataset.page = nextPage;

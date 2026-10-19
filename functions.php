@@ -109,6 +109,52 @@ function magnet_render_post_card() {
     <?php
 }
 
+// Card de People Grid: imagen vertical + título, autor y categoría
+function magnet_render_people_card() {
+    $post_id  = get_the_ID();
+    $is_paid  = magnet_is_paid_post($post_id);
+    $thumb    = get_the_post_thumbnail_url($post_id, 'large');
+    $link     = $is_paid ? magnet_get_join_url() : get_permalink();
+    $cats     = get_the_category($post_id);
+    $category = $cats ? $cats[0]->name : '';
+    ?>
+    <article class="people-card<?php echo $is_paid ? ' people-card--locked' : ''; ?><?php echo $thumb ? '' : ' people-card--no-image'; ?>">
+        <a href="<?php echo esc_url($link); ?>" class="people-card__link">
+            <?php if ($thumb) : ?>
+            <img src="<?php echo esc_url($thumb); ?>" alt="" class="people-card__img" loading="lazy">
+            <?php endif; ?>
+
+            <div class="people-card__overlay"></div>
+
+            <?php if ($is_paid) : ?>
+            <span class="people-card__lock">
+                <?php echo magnet_icon('lock', 'people-card__lock-icon'); ?>
+            </span>
+            <?php endif; ?>
+
+            <div class="people-card__body">
+                <h3 class="people-card__title"><?php the_title(); ?></h3>
+                <p class="people-card__author"><?php echo esc_html(get_the_author()); ?></p>
+                <?php if ($category) : ?>
+                <span class="people-card__cat"><?php echo esc_html($category); ?></span>
+                <?php endif; ?>
+            </div>
+        </a>
+    </article>
+    <?php
+}
+
+// Imprime los posts del query en grupos de filas 3 / 3 / 2
+function magnet_render_people_batch($query) {
+    echo '<div class="people-batch">';
+    while ($query->have_posts()) {
+        $query->the_post();
+        magnet_render_people_card();
+    }
+    wp_reset_postdata();
+    echo '</div>';
+}
+
 // ── People Grid: query + Load More (AJAX) ──
 function magnet_people_query($category_id, $per_page, $paged = 1) {
     $args = [
@@ -130,18 +176,14 @@ add_action('wp_ajax_nopriv_magnet_people_load_more', 'magnet_people_load_more');
 function magnet_people_load_more() {
     check_ajax_referer('magnet_people_load_more', 'nonce');
 
-    $per_page = min(48, max(1, intval($_POST['per_page'] ?? 9)));
+    $per_page = min(48, max(1, intval($_POST['per_page'] ?? 8)));
     $paged    = max(2, intval($_POST['page'] ?? 2));
     $category = intval($_POST['category'] ?? 0);
 
     $query = magnet_people_query($category, $per_page, $paged);
 
     ob_start();
-    while ($query->have_posts()) {
-        $query->the_post();
-        magnet_render_post_card();
-    }
-    wp_reset_postdata();
+    magnet_render_people_batch($query);
 
     wp_send_json_success([
         'html'     => ob_get_clean(),
@@ -187,12 +229,12 @@ add_action('acf/init', function () {
             'supports'        => ['anchor' => true],
         ];
 
-        // People Grid reutiliza los estilos de las cards de posts-grid y necesita su JS
+        // People Grid reutiliza título/botón de posts-grid y necesita su JS
         if ($slug === 'people-grid') {
             $config['enqueue_assets'] = function () {
                 $base = get_template_directory_uri() . '/blocks/';
                 wp_enqueue_style('block-acf-posts-grid', $base . 'posts-grid/style.css', [], '2.0.0');
-                wp_enqueue_script('magnet-people-grid', $base . 'people-grid/script.js', [], '2.0.0', true);
+                wp_enqueue_script('magnet-people-grid', $base . 'people-grid/script.js', [], '2.0.1', true);
             };
         }
 
@@ -273,7 +315,7 @@ function magnet_register_acf_fields() {
         'fields' => [
             ['key'=>'field_pg_title',    'label'=>'Título de sección',     'name'=>'pg_title',    'type'=>'text'],
             ['key'=>'field_pg_category', 'label'=>'Categoría (opcional)',  'name'=>'pg_category', 'type'=>'taxonomy', 'taxonomy'=>'category', 'field_type'=>'select', 'allow_null'=>1, 'return_format'=>'id', 'instructions'=>'Vacío = todos los posts.'],
-            ['key'=>'field_pg_rows',     'label'=>'Filas por carga',       'name'=>'pg_rows',     'type'=>'number', 'default_value'=>3, 'min'=>1, 'max'=>10, 'instructions'=>'Cada fila tiene 3 posts. Se cargan las mismas filas en cada clic de Load More.'],
+            ['key'=>'field_pg_per_load', 'label'=>'Posts por carga',       'name'=>'pg_per_load', 'type'=>'number', 'default_value'=>8, 'min'=>1, 'max'=>24, 'instructions'=>'8 = filas de 3 / 3 / 2. Load More trae la misma cantidad cada vez.'],
             ['key'=>'field_pg_btn_text', 'label'=>'Texto del botón',       'name'=>'pg_btn_text', 'type'=>'text', 'default_value'=>'Load More'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'acf/people-grid']]],
