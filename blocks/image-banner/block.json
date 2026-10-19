@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/image-banner",
+  "title": "Magnet Image Banner",
+  "description": "Banner con imagen de fondo, título opcional y botón centrado.",
+  "category": "magnet",
+  "icon": "format-image",
+  "acf": {
+    "mode": "auto",
+    "renderTemplate": "blocks/image-banner/render.php"
+  },
+  "supports": { "anchor": true },
+  "example": {}
+}

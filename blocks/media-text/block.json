@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/media-text",
+  "title": "Magnet Media + Text",
+  "description": "Título, texto y botón opcional junto a una imagen (izquierda o derecha).",
+  "category": "magnet",
+  "icon": "align-pull-right",
+  "acf": {
+    "mode": "auto",
+    "renderTemplate": "blocks/media-text/render.php"
+  },
+  "supports": { "anchor": true },
+  "example": {}
+}

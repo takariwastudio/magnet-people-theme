@@ -1,0 +1,103 @@
+/* =============================================
+   Block: magnet/image-banner
+   Magnet People v2 — Takariwa Studio
+   ============================================= */
+
+.magnet-ibanner {
+  padding: clamp(40px, 5vw, 60px) 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.magnet-ibanner__inner {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  aspect-ratio: 5 / 3;
+  border-radius: clamp(20px, 2.6vw, 40px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+
+/* Imagen de fondo (con srcset) */
+.magnet-ibanner__media,
+.magnet-ibanner__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.magnet-ibanner__media {
+  z-index: -1;
+}
+
+.magnet-ibanner__media img {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Contenido */
+.magnet-ibanner__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  text-align: center;
+}
+
+.magnet-ibanner__title {
+  font-family: "Poppins", "Nunito Sans", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0;
+  max-width: 18ch;
+}
+
+/* Botón outline blanco */
+.magnet-ibanner__btn {
+  display: inline-block;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 12px 28px;
+  color: #ffffff !important;
+  background: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.magnet-ibanner__btn:hover,
+.magnet-ibanner__btn:focus-visible {
+  background-color: #ffffff;
+  color: var(--black, #1a1a1a) !important;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .magnet-ibanner {
+    padding-inline: 16px;
+  }
+
+  /* Sin imagen móvil: se mantiene 5:3 con alto mínimo para que el botón respire */
+  .magnet-ibanner__inner {
+    min-height: 260px;
+  }
+
+  /* Con imagen móvil dedicada: formato vertical */
+  .magnet-ibanner--has-mobile .magnet-ibanner__inner {
+    aspect-ratio: 4 / 5;
+  }
+}

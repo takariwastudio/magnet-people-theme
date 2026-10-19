@@ -1,0 +1,139 @@
+/* =============================================
+   Block: magnet/media-text
+   Magnet People v2 — Takariwa Studio
+   ============================================= */
+
+.magnet-media {
+  padding: clamp(40px, 5vw, 60px) clamp(20px, 5vw, 40px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.magnet-media__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  column-gap: clamp(40px, 10vw, 160px);
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Imagen a la izquierda */
+.magnet-media--img-left .magnet-media__image {
+  order: -1;
+}
+
+/* Contenido */
+.magnet-media__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.magnet-media__title {
+  font-family: "Poppins", "Nunito Sans", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.875rem, 2.8vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--black, #1a1a1a);
+  margin: 0 0 28px;
+}
+
+.magnet-media__text {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.75;
+  color: var(--black, #1a1a1a);
+}
+
+.magnet-media__text p {
+  margin: 0 0 1.75em;
+}
+
+.magnet-media__text > :last-child {
+  margin-bottom: 0;
+}
+
+.magnet-media__text a {
+  color: var(--red, #e31e24);
+}
+
+/* Botón */
+.magnet-media__btn {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  margin-top: 40px;
+  padding: 10px 24px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 100px;
+  box-sizing: border-box;
+  transition: opacity 0.2s ease;
+}
+
+/* Título + botón sin texto intermedio: más aire, como en el diseño */
+.magnet-media__title + .magnet-media__btn {
+  margin-top: 36px;
+}
+
+.magnet-media__btn--dark {
+  background-color: #231f20;
+  color: #ffffff !important;
+}
+
+.magnet-media__btn--red {
+  background-color: #dc2327;
+  color: #ffffff !important;
+}
+
+.magnet-media__btn:hover,
+.magnet-media__btn:focus-visible {
+  opacity: 0.85;
+  text-decoration: none;
+}
+
+/* Imagen — se recorta a 3:2 sin importar la proporción que se suba */
+.magnet-media__image {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: clamp(20px, 2.6vw, 40px);
+  overflow: hidden;
+}
+
+.magnet-media__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .magnet-media__inner {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+
+  /* En móvil siempre texto primero, imagen después */
+  .magnet-media--img-left .magnet-media__image {
+    order: 0;
+  }
+
+  .magnet-media__title {
+    margin-bottom: 20px;
+  }
+
+  .magnet-media__btn,
+  .magnet-media__title + .magnet-media__btn {
+    max-width: none;
+    margin-top: 24px;
+    padding: 14px 24px;
+  }
+}

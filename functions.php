@@ -27,7 +27,7 @@ add_action('after_setup_theme', function () {
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
         'magnet-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Nunito:wght@600&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Nunito:wght@600&family=Poppins:wght@800&display=swap',
         [],
         null
     );
@@ -94,6 +94,8 @@ add_action('acf/init', function () {
         'about-section' => 'Magnet About Section',
         'posts-grid'    => 'Magnet Posts Grid',
         'cta-banner'    => 'Magnet CTA Banner',
+        'media-text'    => 'Magnet Media + Text',
+        'image-banner'  => 'Magnet Image Banner',
     ];
 
     foreach ($blocks as $slug => $title) {
@@ -187,6 +189,37 @@ function magnet_register_acf_fields() {
             ['key'=>'field_cta_bolt_image', 'label'=>'Imagen del rayo (decorativo)', 'name'=>'cta_bolt_image', 'type'=>'image', 'return_format'=>'url', 'preview_size'=>'medium'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/cta-banner']]],
+    ]);
+
+    // Media + Text — título, texto, botón e imagen lado a lado
+    acf_add_local_field_group([
+        'key'    => 'group_magnet_media_text',
+        'title'  => 'Media + Text',
+        'fields' => [
+            ['key'=>'field_mt_title',          'label'=>'Título',             'name'=>'mt_title',          'type'=>'text'],
+            ['key'=>'field_mt_content',        'label'=>'Texto',              'name'=>'mt_content',        'type'=>'wysiwyg', 'toolbar'=>'basic', 'media_upload'=>0],
+            ['key'=>'field_mt_btn_text',       'label'=>'Texto del botón',    'name'=>'mt_btn_text',       'type'=>'text'],
+            ['key'=>'field_mt_btn_url',        'label'=>'URL del botón',      'name'=>'mt_btn_url',        'type'=>'url'],
+            ['key'=>'field_mt_btn_style',      'label'=>'Estilo del botón',   'name'=>'mt_btn_style',      'type'=>'select', 'choices'=>['dark'=>'Negro','red'=>'Rojo'], 'default_value'=>'dark'],
+            ['key'=>'field_mt_image',          'label'=>'Imagen',             'name'=>'mt_image',          'type'=>'image', 'return_format'=>'id', 'preview_size'=>'medium', 'instructions'=>'Proporción 3:2, mínimo 1200×800 px. Se recorta automáticamente.'],
+            ['key'=>'field_mt_image_position', 'label'=>'Posición de imagen', 'name'=>'mt_image_position', 'type'=>'button_group', 'choices'=>['right'=>'Derecha','left'=>'Izquierda'], 'default_value'=>'right'],
+        ],
+        'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/media-text']]],
+    ]);
+
+    // Image Banner — imagen de fondo con botón centrado
+    acf_add_local_field_group([
+        'key'    => 'group_magnet_image_banner',
+        'title'  => 'Image Banner',
+        'fields' => [
+            ['key'=>'field_ib_image',        'label'=>'Imagen (desktop)',      'name'=>'ib_image',        'type'=>'image', 'return_format'=>'id', 'preview_size'=>'medium', 'instructions'=>'Proporción 5:3, ideal 2000×1200 px.'],
+            ['key'=>'field_ib_image_mobile', 'label'=>'Imagen (móvil)',        'name'=>'ib_image_mobile', 'type'=>'image', 'return_format'=>'id', 'preview_size'=>'medium', 'instructions'=>'Opcional. Proporción 4:5, ideal 800×1000 px. Si se omite, se usa la de desktop recortada.'],
+            ['key'=>'field_ib_bg_color',     'label'=>'Color de fondo',        'name'=>'ib_bg_color',     'type'=>'color_picker', 'default_value'=>'#7FCFF2'],
+            ['key'=>'field_ib_title',        'label'=>'Título (opcional)',     'name'=>'ib_title',        'type'=>'text'],
+            ['key'=>'field_ib_btn_text',     'label'=>'Texto del botón',       'name'=>'ib_btn_text',     'type'=>'text', 'default_value'=>"Let's Talk"],
+            ['key'=>'field_ib_btn_url',      'label'=>'URL del botón',         'name'=>'ib_btn_url',      'type'=>'url'],
+        ],
+        'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/image-banner']]],
     ]);
 }
 
