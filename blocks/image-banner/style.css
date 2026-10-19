@@ -90,17 +90,21 @@
 
 /* Responsive */
 @media (max-width: 600px) {
+  /* Mismo gutter que magnet/media-text para alinear bordes */
   .magnet-ibanner {
-    padding-inline: 16px;
+    padding-inline: clamp(20px, 5vw, 40px);
   }
 
-  /* Sin imagen móvil: se mantiene 5:3 con alto mínimo para que el botón respire */
+  /* Sin imagen móvil: alto fijo en vez de aspect-ratio + min-height
+     (esa combinación transfiere un min-width y desborda la pantalla) */
   .magnet-ibanner__inner {
-    min-height: 260px;
+    aspect-ratio: auto;
+    height: 280px;
   }
 
   /* Con imagen móvil dedicada: formato vertical */
   .magnet-ibanner--has-mobile .magnet-ibanner__inner {
     aspect-ratio: 4 / 5;
+    height: auto;
   }
 }
