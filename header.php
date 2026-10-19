@@ -42,8 +42,8 @@
                 <a href="<?php echo esc_url(home_url('/cuenta/')); ?>" class="btn btn--ghost">Mi cuenta</a>
                 <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="btn btn--ghost">Sign out</a>
             <?php else : ?>
-                <a href="<?php echo esc_url(wp_login_url()); ?>" class="btn btn--ghost">Sign in</a>
-                <a href="<?php echo esc_url(home_url('/membresia/')); ?>" class="btn btn--black">Sign up</a>
+                <a href="#" class="btn btn--ghost" id="signinBtn">Sign in</a>
+                <a href="#" class="btn btn--black" id="signupHeaderBtn">Sign up</a>
             <?php endif; ?>
         </div>
 
@@ -66,15 +66,7 @@
         <a href="<?php echo esc_url(home_url('/cuenta/')); ?>" class="btn btn--ghost">Mi cuenta</a>
         <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="btn btn--ghost">Sign out</a>
     <?php else : ?>
-        <a href="<?php echo esc_url(wp_login_url()); ?>" class="btn btn--ghost">Sign in</a>
-        <a href="<?php echo esc_url(home_url('/membresia/')); ?>" class="btn btn--red">Sign up</a>
+        <a href="#" class="btn btn--ghost" id="signinBtnMobile">Sign in</a>
+        <a href="#" class="btn btn--red" id="signupMobileBtn">Sign up</a>
     <?php endif; ?>
 </nav>
-
-<!-- BOTÓN FLOTANTE SIGNUP -->
-<?php if (!is_user_logged_in()) : ?>
-<a href="<?php echo esc_url(home_url('/membresia/')); ?>" class="signup-float" aria-label="Únete a Magnet People">
-    <?php echo magnet_icon('user'); ?>
-    <span>Signup</span>
-</a>
-<?php endif; ?>
