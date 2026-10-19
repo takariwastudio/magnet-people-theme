@@ -121,16 +121,21 @@ function magnet_register_acf_fields() {
     if (!function_exists('acf_add_local_field_group')) return;
 
     // Hero
+    $hero_is_text    = [[['field'=>'field_hero_layout', 'operator'=>'==', 'value'=>'text']]];
+    $hero_is_default = [[['field'=>'field_hero_layout', 'operator'=>'!=', 'value'=>'text']]];
+
     acf_add_local_field_group([
         'key'      => 'group_magnet_hero',
         'title'    => 'Hero',
         'fields'   => [
-            ['key'=>'field_hero_title',     'label'=>'Título',               'name'=>'hero_title',     'type'=>'text'],
-            ['key'=>'field_hero_subtitle',  'label'=>'Subtítulo',            'name'=>'hero_subtitle',  'type'=>'textarea', 'rows'=>2],
-            ['key'=>'field_hero_btn_text',  'label'=>'Texto del botón',      'name'=>'hero_btn_text',  'type'=>'text'],
-            ['key'=>'field_hero_btn_url',   'label'=>'URL del botón',        'name'=>'hero_btn_url',   'type'=>'url'],
+            ['key'=>'field_hero_layout',    'label'=>'Diseño',               'name'=>'hero_layout',    'type'=>'button_group', 'choices'=>['default'=>'Título + botón','text'=>'Solo texto'], 'default_value'=>'default'],
+            ['key'=>'field_hero_text',      'label'=>'Texto',                'name'=>'hero_text',      'type'=>'wysiwyg', 'toolbar'=>'basic', 'media_upload'=>0, 'conditional_logic'=>$hero_is_text],
+            ['key'=>'field_hero_title',     'label'=>'Título',               'name'=>'hero_title',     'type'=>'text', 'conditional_logic'=>$hero_is_default],
+            ['key'=>'field_hero_subtitle',  'label'=>'Subtítulo',            'name'=>'hero_subtitle',  'type'=>'textarea', 'rows'=>2, 'conditional_logic'=>$hero_is_default],
+            ['key'=>'field_hero_btn_text',  'label'=>'Texto del botón',      'name'=>'hero_btn_text',  'type'=>'text', 'conditional_logic'=>$hero_is_default],
+            ['key'=>'field_hero_btn_url',   'label'=>'URL del botón',        'name'=>'hero_btn_url',   'type'=>'url', 'conditional_logic'=>$hero_is_default],
             ['key'=>'field_hero_bg_color',  'label'=>'Color de fondo',       'name'=>'hero_bg_color',  'type'=>'color_picker', 'default_value'=>'#D8E4EC'],
-            ['key'=>'field_hero_show_deco', 'label'=>'Mostrar ilustraciones','name'=>'hero_show_deco', 'type'=>'true_false', 'default_value'=>1, 'ui'=>1],
+            ['key'=>'field_hero_show_deco', 'label'=>'Mostrar ilustraciones','name'=>'hero_show_deco', 'type'=>'true_false', 'default_value'=>1, 'ui'=>1, 'conditional_logic'=>$hero_is_default],
             ['key'=>'field_hero_bg_image',  'label'=>'Imagen de fondo',      'name'=>'hero_bg_image',  'type'=>'url', 'instructions'=>'Pega la URL de la imagen desde Media Library'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/hero']]],

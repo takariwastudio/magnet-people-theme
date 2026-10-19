@@ -12,6 +12,9 @@ $bg_image  = get_field('hero_bg_image') ?: '';
 $show_deco = get_field('hero_show_deco');
 if ($show_deco === null) $show_deco = true;
 
+$layout    = get_field('hero_layout')   ?: 'default';
+$text      = get_field('hero_text')     ?: '';
+
 $block_id    = 'hero-' . $block['id'];
 $extra_class = isset($block['className']) ? ' ' . $block['className'] : '';
 
@@ -19,6 +22,20 @@ $style = '--hero-bg: ' . esc_attr($bg_color) . ';';
 if ($bg_image) {
     $style .= ' --hero-bg-image: url(' . esc_url($bg_image) . ');';
 }
+
+// Variante "Solo texto" (p. ej. About): párrafos sin título, botón ni decoraciones
+if ($layout === 'text') : ?>
+
+<section id="<?php echo esc_attr($block_id); ?>"
+         class="magnet-hero magnet-hero--text<?php echo esc_attr($extra_class); ?><?php echo $bg_image ? ' magnet-hero--has-image' : ''; ?>"
+         style="<?php echo $style; ?>">
+    <div class="container magnet-hero__text-inner">
+        <div class="magnet-hero__text"><?php echo wp_kses_post($text); ?></div>
+    </div>
+</section>
+
+<?php return;
+endif;
 ?>
 
 <section id="<?php echo esc_attr($block_id); ?>"

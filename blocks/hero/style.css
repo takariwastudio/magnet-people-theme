@@ -95,6 +95,30 @@
   background-position: center;
 }
 
+/* Variante "Solo texto" */
+.magnet-hero--text {
+  display: flex;
+  align-items: center;
+  min-height: clamp(360px, 42vw, 640px);
+  padding: clamp(64px, 9vw, 140px) 0;
+}
+.magnet-hero__text-inner {
+  max-width: 1160px;
+  padding-inline: clamp(20px, 5vw, 40px);
+}
+.magnet-hero__text {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+  line-height: 1.55;
+  color: var(--black, #1a1a1a);
+}
+.magnet-hero__text p {
+  margin: 0 0 1.4em;
+}
+.magnet-hero__text > :last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   .magnet-hero__inner {
     flex-direction: column;
