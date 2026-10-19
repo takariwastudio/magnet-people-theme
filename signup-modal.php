@@ -110,19 +110,13 @@ if ( is_user_logged_in() ) return;
 
         <!-- Cerrar -->
         <button class="magnet-modal__close" id="signinModalClose" aria-label="Cerrar">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.25" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 20L20 4M4 4l16 16"/>
             </svg>
         </button>
 
-        <!-- Logo / ícono -->
-        <div class="signin-modal__icon" aria-hidden="true">
-            <?php echo magnet_icon('user'); ?>
-        </div>
-
         <!-- Título -->
-        <h2 class="magnet-modal__title" id="signinModalTitle">Sign in to Magnet</h2>
-        <p class="signin-modal__subtitle">Enter your email to continue</p>
+        <h2 class="magnet-modal__title" id="signinModalTitle">Sign in</h2>
 
         <!-- Formulario — paso 1: email -->
         <form class="signin-form" id="signinForm" method="post" action="<?php echo esc_url( wp_login_url() ); ?>">
@@ -130,13 +124,13 @@ if ( is_user_logged_in() ) return;
             <input type="hidden" name="redirect_to" value="<?php echo esc_attr( home_url('/cuenta/') ); ?>">
 
             <div class="signin-form__field">
-                <label for="signinEmail" class="signin-form__label">Email address</label>
+                <label for="signinEmail" class="signin-form__label">Email</label>
                 <input
                     type="email"
                     id="signinEmail"
                     name="log"
                     class="signin-form__input"
-                    placeholder="you@example.com"
+                    placeholder="jamie@example.com"
                     required
                     autocomplete="email"
                 >

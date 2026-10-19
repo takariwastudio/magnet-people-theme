@@ -48,13 +48,13 @@ add_action('wp_enqueue_scripts', function () {
         'magnet-modal',
         get_template_directory_uri() . '/assets/css/modal.css',
         ['magnet-main'],
-        '2.0.0'
+        '2.0.1'
     );
     wp_enqueue_script(
         'magnet-modal',
         get_template_directory_uri() . '/assets/js/modal.js',
         ['magnet-main'],
-        '2.0.0',
+        '2.0.1',
         true
     );
     wp_localize_script('magnet-main', 'magnetData', [

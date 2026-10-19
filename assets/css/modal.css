@@ -268,51 +268,70 @@
    SIGN-IN MODAL
    ════════════════════════════════════════════ */
 
-/* Ícono de usuario centrado */
-.signin-modal__icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 16px;
-  background: #f4f4f4;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #1a1a1a;
-}
-.signin-modal__icon svg {
-  width: 26px;
-  height: 26px;
+/* Backdrop claro con blur */
+.magnet-modal--sm .magnet-modal__backdrop {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
 }
 
-/* Subtítulo */
-.signin-modal__subtitle {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #9e9e9e;
-  margin: -16px 0 28px;
+/* Caja */
+.magnet-modal--sm .magnet-modal__box--sm {
+  max-width: 500px;
+  border-radius: 12px;
+  padding: 40px 40px 32px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Cerrar: X roja, fina */
+.magnet-modal--sm .magnet-modal__close {
+  top: 32px;
+  right: 32px;
+  color: #dc2327;
+}
+.magnet-modal--sm .magnet-modal__close:hover {
+  color: #c0181d;
+  background: #fdecec;
+}
+.magnet-modal--sm .magnet-modal__close svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Título */
+.magnet-modal--sm .magnet-modal__title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin: 0 0 32px;
+}
+
+/* Footer link */
+.magnet-modal--sm .magnet-modal__footer-link {
+  font-size: 0.95rem;
+  color: #5a5a5a;
+}
+.magnet-modal--sm .magnet-modal__footer-link a {
+  font-weight: 700;
 }
 
 /* Formulario */
 .signin-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   margin-bottom: 24px;
 }
 
 .signin-form__field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .signin-form__label {
   font-family: "Nunito Sans", sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #5a5a5a;
-  letter-spacing: 0.02em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
 }
 
 .signin-form__input {
@@ -320,9 +339,9 @@
   font-size: 0.95rem;
   color: #1a1a1a;
   background: #fff;
-  border: 1.5px solid #e4e4e4;
-  border-radius: 12px;
-  padding: 13px 16px;
+  border: 1px solid #bdbdbd;
+  border-radius: 6px;
+  padding: 11px 12px;
   outline: none;
   transition:
     border-color 0.2s,
@@ -331,7 +350,7 @@
   box-sizing: border-box;
 }
 .signin-form__input::placeholder {
-  color: #c0c0c0;
+  color: #a8a8a8;
 }
 .signin-form__input:focus {
   border-color: #1a1a1a;
@@ -356,18 +375,17 @@
   font-family: "Nunito", sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
-  background: #1a1a1a;
+  background: #dc2327;
   color: #fff;
   border: none;
-  border-radius: 100px;
-  padding: 15px 24px;
+  border-radius: 6px;
+  padding: 12px 24px;
   cursor: pointer;
   transition: background 0.2s;
   width: 100%;
-  margin-top: 4px;
 }
 .signin-form__btn:hover {
-  background: #333;
+  background: #c0181d;
 }
 
 /* Botón flotante */
@@ -409,8 +427,16 @@
     padding: 40px 20px 28px;
     border-radius: 20px;
   }
-  .magnet-modal__box--sm {
-    padding: 40px 20px 28px;
+  .magnet-modal--sm .magnet-modal__box--sm {
+    padding: 32px 20px 24px;
+  }
+  .magnet-modal--sm .magnet-modal__close {
+    top: 20px;
+    right: 16px;
+  }
+  .magnet-modal--sm .magnet-modal__title {
+    font-size: 1.75rem;
+    margin-bottom: 24px;
   }
   .magnet-modal__plans {
     grid-template-columns: 1fr;

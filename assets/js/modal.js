@@ -129,8 +129,10 @@
     if (e.key !== "Escape") return;
     if (!signupModal.hidden)
       closeModal(signupModal, floatBtn || signupHeaderBtn);
-    if (!signinModal.hidden)
+    if (!signinModal.hidden) {
       closeModal(signinModal, signinBtn || signinBtnMobile);
+      resetSigninForm();
+    }
   });
 
   /* ── Toggle mensual / anual ── */
