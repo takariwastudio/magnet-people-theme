@@ -1,0 +1,53 @@
+/**
+ * Block: magnet/people-grid — Load More
+ * Magnet People v2 — Takariwa Studio
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.querySelectorAll('[data-people-grid-more]').forEach((btn) => {
+        const section = btn.closest('.magnet-people-grid');
+        const list    = section?.querySelector('[data-people-grid-list]');
+        if (!list) return;
+
+        const label = btn.textContent.trim();
+
+        btn.addEventListener('click', async () => {
+            if (btn.classList.contains('is-loading')) return;
+
+            const nextPage = parseInt(btn.dataset.page, 10) + 1;
+            btn.classList.add('is-loading');
+            btn.textContent = 'Loading…';
+
+            const body = new FormData();
+            body.append('action', 'magnet_people_load_more');
+            body.append('nonce', btn.dataset.nonce);
+            body.append('page', nextPage);
+            body.append('per_page', btn.dataset.perPage);
+            body.append('category', btn.dataset.category);
+
+            try {
+                const res  = await fetch(btn.dataset.ajaxUrl, { method: 'POST', body, credentials: 'same-origin' });
+                const json = await res.json();
+                if (!json.success) throw new Error('Load more failed');
+
+                const tpl = document.createElement('template');
+                tpl.innerHTML = json.data.html;
+                tpl.content.querySelectorAll('.post-card').forEach((card) => card.classList.add('is-new'));
+                list.appendChild(tpl.content);
+
+                btn.dataset.page = nextPage;
+                if (!json.data.has_more) {
+                    btn.parentElement.remove();
+                    return;
+                }
+            } catch (err) {
+                console.error(err);
+            }
+
+            btn.classList.remove('is-loading');
+            btn.textContent = label;
+        });
+    });
+
+});

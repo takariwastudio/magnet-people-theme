@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/people-grid",
+  "title": "Magnet People Grid",
+  "description": "Grilla de posts de 3 columnas con botón Load More (carga filas adicionales vía AJAX).",
+  "category": "magnet",
+  "icon": "grid-view",
+  "acf": {
+    "mode": "auto",
+    "renderTemplate": "blocks/people-grid/render.php"
+  },
+  "supports": { "anchor": true },
+  "example": {}
+}

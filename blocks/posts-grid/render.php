@@ -45,35 +45,8 @@ $extra_class = isset($block['className']) ? ' ' . esc_attr($block['className']) 
         <?php if ($posts->have_posts()) : ?>
             <div class="magnet-posts-grid__grid">
                 <?php while ($posts->have_posts()) : $posts->the_post();
-                    $post_id  = get_the_ID();
-                    $is_paid  = magnet_is_paid_post($post_id);
-                    $thumb    = get_the_post_thumbnail_url($post_id, 'card-wide');
-                    $link     = $is_paid ? magnet_get_join_url() : get_permalink();
-                    $bg_style = $thumb ? 'style="background-image: url(\'' . esc_url($thumb) . '\')"' : '';
-                ?>
-                    <article class="post-card<?php echo $is_paid ? ' post-card--locked' : ''; ?>">
-                        <a href="<?php echo esc_url($link); ?>"
-                           class="post-card__link"
-                           <?php echo $bg_style; ?>>
-
-                            <!-- Overlay oscuro para legibilidad -->
-                            <div class="post-card__overlay"></div>
-
-                            <!-- Candado (solo paid) -->
-                            <?php if ($is_paid) : ?>
-                            <span class="post-card__lock">
-                                <?php echo magnet_icon('lock', 'post-card__lock-icon'); ?>
-                            </span>
-                            <?php endif; ?>
-
-                            <!-- Título sobre la imagen -->
-                            <div class="post-card__body">
-                                <h3 class="post-card__title"><?php the_title(); ?></h3>
-                            </div>
-
-                        </a>
-                    </article>
-                <?php endwhile; wp_reset_postdata(); ?>
+                    magnet_render_post_card();
+                endwhile; wp_reset_postdata(); ?>
             </div>
         <?php else : ?>
             <p class="magnet-posts-grid__empty">No hay posts publicados aún.</p>

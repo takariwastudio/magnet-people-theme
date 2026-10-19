@@ -1,0 +1,31 @@
+/* =============================================
+   Block: magnet/people-grid
+   Magnet People v2 — Takariwa Studio
+   Hereda grid, cards y botón de posts-grid/style.css
+   ============================================= */
+
+.magnet-people-grid__btn {
+  border: 0;
+  cursor: pointer;
+}
+
+.magnet-people-grid__btn.is-loading {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Entrada suave de las cards nuevas */
+.magnet-people-grid .post-card.is-new {
+  animation: magnet-people-fade-in 0.4s ease both;
+}
+
+@keyframes magnet-people-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magnet-people-grid .post-card.is-new {
+    animation: none;
+  }
+}
