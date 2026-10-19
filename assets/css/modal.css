@@ -1,0 +1,268 @@
+/* =============================================
+   Signup Modal — Magnet People v2
+   Añadir al final de main.css
+   ============================================= */
+
+/* Overlay */
+.magnet-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.magnet-modal[hidden] {
+  display: none;
+}
+
+.magnet-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Caja */
+.magnet-modal__box {
+  position: relative;
+  background: #fff;
+  border-radius: 24px;
+  padding: 48px 40px 40px;
+  width: 100%;
+  max-width: 840px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+/* Cerrar */
+.magnet-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  border-radius: 50%;
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+.magnet-modal__close:hover {
+  color: #1a1a1a;
+  background: #f0f0f0;
+}
+.magnet-modal__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Título */
+.magnet-modal__title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Toggle mensual/anual */
+.magnet-modal__toggle {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  background: #f2f2f2;
+  border-radius: 100px;
+  padding: 4px;
+  width: fit-content;
+  margin: 0 auto 32px;
+}
+.toggle-btn {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: none;
+  background: none;
+  color: #5a5a5a;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toggle-btn--active {
+  background: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+.toggle-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #dc2327;
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 100px;
+}
+
+/* Grid de planes */
+.magnet-modal__plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Card base */
+.plan-card {
+  border: 1.5px solid #e4e4e4;
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card destacada */
+.plan-card--featured {
+  border-color: #1a1a1a;
+  background: #fafafa;
+}
+
+.plan-card__name {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #dc2327;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.plan-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.plan-card__amount {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1a1a1a;
+  line-height: 1;
+}
+.plan-card__period {
+  font-size: 0.9rem;
+  color: #9e9e9e;
+  font-weight: 500;
+}
+
+.plan-card__tagline {
+  font-size: 0.82rem;
+  color: #5a5a5a;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Lista de features */
+.plan-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.plan-card__features li {
+  font-size: 0.85rem;
+  color: #1a1a1a;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+.plan-card__features svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #dc2327;
+  margin-top: 1px;
+}
+
+/* Botones de plan */
+.plan-card__btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 14px 24px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition:
+    opacity 0.2s,
+    background 0.2s;
+  margin-top: auto;
+}
+.plan-card__btn--red {
+  background: #dc2327;
+  color: #fff;
+}
+.plan-card__btn--red:hover {
+  opacity: 0.88;
+  color: #fff;
+}
+
+.plan-card__btn--outline {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1.5px solid #e4e4e4;
+}
+.plan-card__btn--outline:hover {
+  border-color: #1a1a1a;
+}
+
+/* Sign in link */
+.magnet-modal__signin {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #9e9e9e;
+  margin: 0;
+}
+.magnet-modal__signin a {
+  color: #dc2327;
+  font-weight: 600;
+  text-decoration: none;
+}
+.magnet-modal__signin a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .magnet-modal__box {
+    padding: 40px 20px 28px;
+    border-radius: 20px;
+  }
+  .magnet-modal__plans {
+    grid-template-columns: 1fr;
+  }
+  .plan-card--featured {
+    order: -1;
+  }
+}

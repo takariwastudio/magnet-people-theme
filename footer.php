@@ -54,20 +54,14 @@
 
         <div class="site-footer__bottom">
             <p class="site-footer__copy">
-                Magnet &copy; <?php echo date('Y'); ?> — All Right Reserved.
+                Magnet &copy; <?php echo date('Y'); ?> - All Right Reserved.
             </p>
         </div>
 
     </div>
 </footer>
 
-<?php if (!is_user_logged_in()) : ?>
-<a href="<?php echo esc_url(home_url('/membresia/')); ?>" class="signup-float" aria-label="Get Access">
-    <?php echo magnet_icon('user', 'signup-float__icon'); ?>
-    <span>Signup</span>
-</a>
-<?php endif; ?>
-
+<?php get_template_part('signup-modal'); ?>
 <?php wp_footer(); ?>
 </body>
 </html>
