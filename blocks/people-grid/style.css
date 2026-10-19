@@ -8,7 +8,7 @@
   --people-gap: 40px;
 }
 
-/* Cada carga es un grupo; las filas incompletas (ej. 3 / 3 / 2) quedan centradas */
+/* Cada carga es un grupo; en filas incompletas (2 o 1 card) las cards crecen a todo el ancho */
 .people-grid__list {
   display: flex;
   flex-direction: column;
@@ -16,16 +16,19 @@
 }
 
 .people-batch {
+  --people-cols: 3;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: var(--people-gap);
+  container-type: inline-size;
 }
 
 /* ── Card ── */
 .people-card {
-  flex: 0 0 calc((100% - 2 * var(--people-gap)) / 3);
-  aspect-ratio: 9 / 10;
+  /* -1px evita que el redondeo empuje la 3ra card a otra fila; flex-grow lo compensa */
+  flex: 1 0 calc((100% - (var(--people-cols) - 1) * var(--people-gap)) / var(--people-cols) - 1px);
+  /* Alto fijo = el de una card en fila completa (proporción 9:10), aunque se estire a lo ancho */
+  height: calc((100cqw - (var(--people-cols) - 1) * var(--people-gap)) / var(--people-cols) * 10 / 9);
   border-radius: 40px;
   overflow: hidden;
   position: relative;
@@ -159,13 +162,11 @@
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .magnet-people-grid { --people-gap: 24px; }
-  .people-card {
-    flex-basis: calc((100% - var(--people-gap)) / 2);
-    border-radius: 32px;
-  }
+  .people-batch { --people-cols: 2; }
+  .people-card { border-radius: 32px; }
   .people-card__body { padding: 0 24px 26px; }
 }
 
 @media (max-width: 560px) {
-  .people-card { flex-basis: 100%; }
+  .people-batch { --people-cols: 1; }
 }
