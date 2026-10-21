@@ -10,6 +10,7 @@
  *   vid_youtube  — url (youtube.com/watch?v=…, youtu.be/…, /shorts/…, /embed/…)
  *   vid_file     — file mp4/webm (return: url)
  *   vid_poster   — image (return: id) — portada; con YouTube es opcional
+ *   vid_autoplay — true_false — arranca solo, silenciado y en bucle (los navegadores exigen mute)
  *   vid_bg_color — color_picker
  */
 
@@ -19,6 +20,7 @@ $source   = get_field('vid_source')   ?: 'youtube';
 $yt_url   = get_field('vid_youtube')  ?: '';
 $file_url = get_field('vid_file')     ?: '';
 $poster   = get_field('vid_poster')   ?: 0;
+$autoplay = (bool) get_field('vid_autoplay');
 $bg_color = get_field('vid_bg_color') ?: '#D8E4EC';
 
 $block_id    = 'video-' . $block['id'];
@@ -59,7 +61,25 @@ $poster_url = $poster ? wp_get_attachment_image_url($poster, 'full') : '';
         </div>
         <?php endif; ?>
 
-        <?php if ($yt_id) : ?>
+        <?php if ($yt_id && $autoplay) :
+            // loop en YouTube requiere playlist = el mismo ID
+            $yt_src = add_query_arg([
+                'autoplay'    => 1,
+                'mute'        => 1,
+                'loop'        => 1,
+                'playlist'    => $yt_id,
+                'playsinline' => 1,
+                'rel'         => 0,
+            ], 'https://www.youtube-nocookie.com/embed/' . $yt_id); ?>
+        <div class="magnet-video__frame">
+            <iframe class="magnet-video__iframe"
+                    src="<?php echo esc_url($yt_src); ?>"
+                    title="<?php echo esc_attr($title ?: 'YouTube video'); ?>"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+        </div>
+
+        <?php elseif ($yt_id) : ?>
         <!-- Fachada: el iframe de YouTube solo se carga al hacer click -->
         <div class="magnet-video__frame">
             <button type="button" class="magnet-video__play"
@@ -83,7 +103,8 @@ $poster_url = $poster ? wp_get_attachment_image_url($poster, 'full') : '';
 
         <?php elseif ($source === 'file' && $file_url) : ?>
         <div class="magnet-video__frame">
-            <video class="magnet-video__file" controls playsinline preload="metadata"
+            <video class="magnet-video__file" controls playsinline
+                   <?php echo $autoplay ? 'autoplay muted loop preload="auto"' : 'preload="metadata"'; ?>
                    <?php echo $poster_url ? 'poster="' . esc_url($poster_url) . '"' : ''; ?>>
                 <source src="<?php echo esc_url($file_url); ?>">
             </video>
