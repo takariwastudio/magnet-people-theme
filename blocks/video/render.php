@@ -45,6 +45,10 @@ endif;
 $poster_url = $poster ? wp_get_attachment_image_url($poster, 'full') : '';
 ?>
 
+<?php if (current_user_can('edit_posts')) : // Diagnóstico temporal: visible solo en "ver código fuente" para editores ?>
+<!-- magnet/video debug · v4 · source=<?php echo esc_html($source); ?> · yt_id=<?php echo esc_html($yt_id ?: '-'); ?> · vid_autoplay=<?php echo esc_html(var_export(get_field('vid_autoplay'), true)); ?> -->
+<?php endif; ?>
+
 <section id="<?php echo esc_attr($block_id); ?>"
          class="magnet-video<?php echo $extra_class; ?>"
          style="--video-bg: <?php echo esc_attr($bg_color); ?>;">
