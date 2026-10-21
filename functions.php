@@ -4,6 +4,9 @@
  * Takariwa Studio
  */
 
+// Versión del tema (de style.css): se usa para invalidar la caché de CSS/JS en cada release
+define('MAGNET_VERSION', wp_get_theme(get_template())->get('Version'));
+
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
@@ -35,26 +38,26 @@ add_action('wp_enqueue_scripts', function () {
         'magnet-main',
         get_template_directory_uri() . '/assets/css/main.css',
         ['magnet-fonts'],
-        '2.0.0'
+        MAGNET_VERSION
     );
     wp_enqueue_script(
         'magnet-main',
         get_template_directory_uri() . '/assets/js/main.js',
         [],
-        '2.0.0',
+        MAGNET_VERSION,
         true
     );
     wp_enqueue_style(
         'magnet-modal',
         get_template_directory_uri() . '/assets/css/modal.css',
         ['magnet-main'],
-        '2.0.1'
+        MAGNET_VERSION
     );
     wp_enqueue_script(
         'magnet-modal',
         get_template_directory_uri() . '/assets/js/modal.js',
         ['magnet-main'],
-        '2.0.1',
+        MAGNET_VERSION,
         true
     );
     wp_localize_script('magnet-main', 'magnetData', [
@@ -338,7 +341,7 @@ add_action('acf/init', function () {
             $config['enqueue_assets'] = function () use ($slug, $script) {
                 $base = get_template_directory_uri() . '/blocks/';
                 if (in_array($slug, ['people-grid', 'blog-grid'], true)) {
-                    wp_enqueue_style('block-acf-posts-grid', $base . 'posts-grid/style.css', [], '2.0.0');
+                    wp_enqueue_style('block-acf-posts-grid', $base . 'posts-grid/style.css', [], MAGNET_VERSION);
                 }
                 // Versión = fecha del archivo, para que cada deploy invalide la caché
                 wp_enqueue_script('magnet-' . $slug, $base . $slug . '/script.js', [], filemtime($script), true);
