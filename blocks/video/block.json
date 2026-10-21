@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/video",
+  "title": "Magnet Video",
+  "description": "Video de YouTube o archivo MP4 en marco redondeado, con título y texto opcionales.",
+  "category": "magnet",
+  "icon": "video-alt3",
+  "acf": {
+    "mode": "auto",
+    "renderTemplate": "blocks/video/render.php"
+  },
+  "supports": { "anchor": true, "align": ["full"] },
+  "example": {}
+}

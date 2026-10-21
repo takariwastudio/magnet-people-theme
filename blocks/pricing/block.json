@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/pricing",
+  "title": "Magnet Pricing",
+  "description": "Plan de membresía con toggle Monthly / Yearly y botón a Stripe Checkout.",
+  "category": "magnet",
+  "icon": "money-alt",
+  "acf": {
+    "mode": "auto",
+    "renderTemplate": "blocks/pricing/render.php"
+  },
+  "supports": { "anchor": true, "align": ["full"] },
+  "example": {}
+}

@@ -1,0 +1,187 @@
+/* =============================================
+   Block: magnet/pricing
+   Magnet People v2 — Takariwa Studio
+   ============================================= */
+
+.magnet-pricing {
+  background: var(--pricing-bg, #d8e4ec);
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+
+/* Intro */
+.magnet-pricing__intro {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) 24px clamp(32px, 4vw, 48px);
+  text-align: center;
+}
+
+.magnet-pricing__text {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.55;
+  color: var(--black, #1a1a1a);
+}
+
+.magnet-pricing__text + .magnet-pricing__title {
+  margin-top: clamp(32px, 4vw, 56px);
+}
+
+.magnet-pricing__title {
+  font-family: "Poppins", "Nunito Sans", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  line-height: 1.25;
+  color: var(--black, #1a1a1a);
+  margin: 0;
+}
+
+/* Franja degradada */
+.magnet-pricing__band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(40px, 5vw, 64px);
+  padding: clamp(40px, 5vw, 64px) 24px 0;
+  background: linear-gradient(180deg, var(--pricing-gradient, #00d4ff) 0, transparent 360px);
+}
+
+/* Toggle */
+.magnet-pricing__toggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #fff;
+  border: 2px solid var(--black, #1a1a1a);
+  border-radius: 100px;
+}
+
+.magnet-pricing__toggle-btn {
+  min-width: 140px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--black, #1a1a1a);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.magnet-pricing__toggle-btn.is-active {
+  background: var(--black, #1a1a1a);
+  color: #fff;
+}
+
+/* Card */
+.magnet-pricing__card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 44px 36px 40px;
+  background: #f4f4f6;
+  border-radius: clamp(20px, 2.4vw, 32px);
+  box-sizing: border-box;
+}
+
+.magnet-pricing__badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 6px 14px;
+  background: #fff;
+  border-radius: 100px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--black, #1a1a1a);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.magnet-pricing__price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0 0 28px;
+  color: var(--black, #1a1a1a);
+}
+
+.magnet-pricing__amount {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(3rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.magnet-pricing__period {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.magnet-pricing__desc {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--black, #1a1a1a);
+  margin: 0;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.magnet-pricing__features {
+  list-style: disc;
+  margin: 28px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.magnet-pricing__features li {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--black, #1a1a1a);
+}
+
+.magnet-pricing__btn {
+  display: inline-block;
+  margin-top: 36px;
+  padding: 12px 28px;
+  background: var(--red, #e31e24);
+  border-radius: 100px;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.magnet-pricing__btn:hover,
+.magnet-pricing__btn:focus-visible {
+  background: var(--darkred, #c0181d);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .magnet-pricing__intro,
+  .magnet-pricing__band {
+    padding-inline: clamp(20px, 5vw, 40px);
+  }
+  .magnet-pricing__toggle-btn {
+    min-width: 0;
+    padding-inline: 20px;
+  }
+  .magnet-pricing__card {
+    padding: 40px 24px 32px;
+  }
+}

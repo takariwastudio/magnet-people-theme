@@ -1,0 +1,119 @@
+/* =============================================
+   Block: magnet/video
+   Magnet People v2 — Takariwa Studio
+   ============================================= */
+
+.magnet-video {
+  background: var(--video-bg, #d8e4ec);
+  padding: clamp(56px, 7vw, 100px) 0 clamp(40px, 5vw, 72px);
+}
+
+.magnet-video__inner {
+  max-width: var(--max-w, 1160px);
+  margin: 0 auto;
+  padding-inline: 24px;
+  box-sizing: content-box;
+}
+
+/* Intro */
+.magnet-video__intro {
+  max-width: 640px;
+  margin: 0 auto clamp(40px, 5vw, 64px);
+  text-align: center;
+}
+
+.magnet-video__title {
+  font-family: "Poppins", "Nunito Sans", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--black, #1a1a1a);
+  margin: 0 0 24px;
+}
+
+.magnet-video__text {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.55;
+  color: var(--black, #1a1a1a);
+}
+
+/* Marco 16:9 */
+.magnet-video__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(16px, 2.4vw, 32px);
+  overflow: hidden;
+  background: #000;
+}
+
+.magnet-video__play,
+.magnet-video__poster,
+.magnet-video__iframe,
+.magnet-video__file {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.magnet-video__play {
+  display: block;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.magnet-video__poster {
+  max-width: none;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.magnet-video__iframe {
+  border: 0;
+}
+
+.magnet-video__file {
+  object-fit: cover;
+}
+
+/* Botón play */
+.magnet-video__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(56px, 7vw, 84px);
+  height: clamp(56px, 7vw, 84px);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--red, #e31e24);
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.magnet-video__icon svg {
+  width: 42%;
+  height: 42%;
+  margin-left: 6%;
+}
+
+.magnet-video__play:hover .magnet-video__icon,
+.magnet-video__play:focus-visible .magnet-video__icon {
+  background: var(--darkred, #c0181d);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.magnet-video__play:hover .magnet-video__poster {
+  transform: scale(1.02);
+}
+
+@media (max-width: 600px) {
+  .magnet-video__inner {
+    padding-inline: clamp(20px, 5vw, 40px);
+  }
+}
