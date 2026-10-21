@@ -232,13 +232,15 @@ add_action('acf/init', function () {
         ];
 
         // Bloques con JS propio (blocks/{slug}/script.js). People Grid además reutiliza título/botón de posts-grid
-        if (file_exists(get_template_directory() . '/blocks/' . $slug . '/script.js')) {
-            $config['enqueue_assets'] = function () use ($slug) {
+        $script = get_template_directory() . '/blocks/' . $slug . '/script.js';
+        if (file_exists($script)) {
+            $config['enqueue_assets'] = function () use ($slug, $script) {
                 $base = get_template_directory_uri() . '/blocks/';
                 if ($slug === 'people-grid') {
                     wp_enqueue_style('block-acf-posts-grid', $base . 'posts-grid/style.css', [], '2.0.0');
                 }
-                wp_enqueue_script('magnet-' . $slug, $base . $slug . '/script.js', [], '2.0.1', true);
+                // Versión = fecha del archivo, para que cada deploy invalide la caché
+                wp_enqueue_script('magnet-' . $slug, $base . $slug . '/script.js', [], filemtime($script), true);
             };
         }
 

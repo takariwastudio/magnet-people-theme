@@ -104,7 +104,7 @@ $poster_url = $poster ? wp_get_attachment_image_url($poster, 'full') : '';
         <?php elseif ($source === 'file' && $file_url) : ?>
         <div class="magnet-video__frame">
             <video class="magnet-video__file" controls playsinline
-                   <?php echo $autoplay ? 'autoplay muted loop preload="auto"' : 'preload="metadata"'; ?>
+                   <?php echo $autoplay ? 'autoplay muted loop preload="auto" data-video-autoplay' : 'preload="metadata"'; ?>
                    <?php echo $poster_url ? 'poster="' . esc_url($poster_url) . '"' : ''; ?>>
                 <source src="<?php echo esc_url($file_url); ?>">
             </video>
