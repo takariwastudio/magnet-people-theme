@@ -191,6 +191,106 @@ function magnet_people_load_more() {
     ]);
 }
 
+// ── Blog Grid: posts del blog (sin Magnet People) + Load More (AJAX) ──
+
+// Categorías excluidas del blog. Vacío = Magnet People
+function magnet_blog_excluded_cats($ids = []) {
+    $ids = array_filter(array_map('intval', (array) $ids));
+    if (!$ids) {
+        $term = get_category_by_slug('magnet-people');
+        $ids  = $term ? [$term->term_id] : [];
+    }
+    return $ids;
+}
+
+function magnet_blog_query($exclude, $per_page, $paged = 1) {
+    return new WP_Query([
+        'post_type'        => 'post',
+        'post_status'      => 'publish',
+        'posts_per_page'   => max(1, intval($per_page)),
+        'paged'            => max(1, intval($paged)),
+        'orderby'          => 'date',
+        'order'            => 'DESC',
+        'category__not_in' => $exclude,
+    ]);
+}
+
+// Card del blog: imagen + título, autor, candado y categorías como pills
+function magnet_render_blog_card($exclude = []) {
+    $post_id = get_the_ID();
+    $is_paid = magnet_is_paid_post($post_id);
+    $thumb   = get_the_post_thumbnail_url($post_id, 'large');
+    $link    = $is_paid ? magnet_get_join_url() : get_permalink();
+
+    // Fuera: categorías excluidas, "Sin categoría" y tags internos de Ghost (#...)
+    $default_cat = (int) get_option('default_category');
+    $cats = array_filter(get_the_category($post_id), function ($cat) use ($exclude, $default_cat) {
+        return !in_array($cat->term_id, $exclude, true)
+            && $cat->term_id !== $default_cat
+            && strpos($cat->slug, 'hash-') !== 0;
+    });
+    $cats = array_slice($cats, 0, 3);
+    ?>
+    <article class="blog-card<?php echo $is_paid ? ' blog-card--locked' : ''; ?><?php echo $thumb ? '' : ' blog-card--no-image'; ?>">
+        <a href="<?php echo esc_url($link); ?>" class="blog-card__link">
+            <?php if ($thumb) : ?>
+            <img src="<?php echo esc_url($thumb); ?>" alt="" class="blog-card__img" loading="lazy">
+            <div class="blog-card__overlay"></div>
+            <?php endif; ?>
+
+            <div class="blog-card__body">
+                <h3 class="blog-card__title"><?php the_title(); ?></h3>
+                <p class="blog-card__author"><?php echo esc_html(get_the_author()); ?></p>
+
+                <?php if ($is_paid || $cats) : ?>
+                <div class="blog-card__meta">
+                    <?php if ($is_paid) : ?>
+                    <span class="blog-card__lock" aria-label="Contenido exclusivo para miembros">
+                        <?php echo magnet_icon('lock', 'blog-card__lock-icon'); ?>
+                    </span>
+                    <?php endif; ?>
+                    <?php foreach ($cats as $cat) : ?>
+                    <span class="blog-card__cat"><?php echo esc_html($cat->name); ?></span>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
+            </div>
+        </a>
+    </article>
+    <?php
+}
+
+// Imprime los posts del query como un grupo (filas 3 / 3 / 2)
+function magnet_render_blog_batch($query, $exclude = []) {
+    echo '<div class="blog-batch">';
+    while ($query->have_posts()) {
+        $query->the_post();
+        magnet_render_blog_card($exclude);
+    }
+    wp_reset_postdata();
+    echo '</div>';
+}
+
+add_action('wp_ajax_magnet_blog_load_more', 'magnet_blog_load_more');
+add_action('wp_ajax_nopriv_magnet_blog_load_more', 'magnet_blog_load_more');
+function magnet_blog_load_more() {
+    check_ajax_referer('magnet_blog_load_more', 'nonce');
+
+    $per_page = min(48, max(1, intval($_POST['per_page'] ?? 8)));
+    $paged    = max(2, intval($_POST['page'] ?? 2));
+    $exclude  = magnet_blog_excluded_cats(explode(',', sanitize_text_field($_POST['exclude'] ?? '')));
+
+    $query = magnet_blog_query($exclude, $per_page, $paged);
+
+    ob_start();
+    magnet_render_blog_batch($query, $exclude);
+
+    wp_send_json_success([
+        'html'     => ob_get_clean(),
+        'has_more' => $paged < $query->max_num_pages,
+    ]);
+}
+
 // ── ACF Blocks ──
 add_action('acf/init', function () {
     if (!function_exists('acf_register_block_type')) return;
@@ -212,7 +312,8 @@ add_action('acf/init', function () {
         'media-text'    => 'Magnet Media + Text',
         'image-banner'  => 'Magnet Image Banner',
         'people-grid'   => 'Magnet People Grid',
-        'video'         => 'Magnet Video',
+        'blog-grid'     => 'Magnet Blog Grid',
+        'video'       => 'Magnet Video',
         'pricing'       => 'Magnet Pricing',
     ];
 
@@ -231,12 +332,12 @@ add_action('acf/init', function () {
             'supports'        => ['anchor' => true],
         ];
 
-        // Bloques con JS propio (blocks/{slug}/script.js). People Grid además reutiliza título/botón de posts-grid
+        // Bloques con JS propio (blocks/{slug}/script.js). People/Blog Grid además reutilizan título/botón de posts-grid
         $script = get_template_directory() . '/blocks/' . $slug . '/script.js';
         if (file_exists($script)) {
             $config['enqueue_assets'] = function () use ($slug, $script) {
                 $base = get_template_directory_uri() . '/blocks/';
-                if ($slug === 'people-grid') {
+                if (in_array($slug, ['people-grid', 'blog-grid'], true)) {
                     wp_enqueue_style('block-acf-posts-grid', $base . 'posts-grid/style.css', [], '2.0.0');
                 }
                 // Versión = fecha del archivo, para que cada deploy invalide la caché
@@ -325,6 +426,19 @@ function magnet_register_acf_fields() {
             ['key'=>'field_pg_btn_text', 'label'=>'Texto del botón',       'name'=>'pg_btn_text', 'type'=>'text', 'default_value'=>'Load More'],
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'acf/people-grid']]],
+    ]);
+
+    // Blog Grid — posts del blog (excluye Magnet People) con botón Load More
+    acf_add_local_field_group([
+        'key'    => 'group_magnet_blog_grid',
+        'title'  => 'Blog Grid',
+        'fields' => [
+            ['key'=>'field_bg_title',    'label'=>'Título de sección',      'name'=>'bg_title',    'type'=>'text'],
+            ['key'=>'field_bg_exclude',  'label'=>'Excluir categorías',     'name'=>'bg_exclude',  'type'=>'taxonomy', 'taxonomy'=>'category', 'field_type'=>'multi_select', 'allow_null'=>1, 'add_term'=>0, 'save_terms'=>0, 'load_terms'=>0, 'return_format'=>'id', 'instructions'=>'Vacío = excluye Magnet People.'],
+            ['key'=>'field_bg_per_load', 'label'=>'Posts por carga',        'name'=>'bg_per_load', 'type'=>'number', 'default_value'=>8, 'min'=>1, 'max'=>24, 'instructions'=>'8 = filas de 3 / 3 / 2. Load More trae la misma cantidad cada vez.'],
+            ['key'=>'field_bg_btn_text', 'label'=>'Texto del botón',        'name'=>'bg_btn_text', 'type'=>'text', 'default_value'=>'Load more'],
+        ],
+        'location' => [[['param'=>'block','operator'=>'==','value'=>'acf/blog-grid']]],
     ]);
 
     // CTA Banner
