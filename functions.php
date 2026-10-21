@@ -370,67 +370,6 @@ function magnet_register_acf_fields() {
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/image-banner']]],
     ]);
-
-    // Video — YouTube (con fachada, carga al hacer click) o archivo subido
-    $vid_is_youtube = [[['field'=>'field_vid_source', 'operator'=>'==', 'value'=>'youtube']]];
-    $vid_is_file    = [[['field'=>'field_vid_source', 'operator'=>'==', 'value'=>'file']]];
-
-    acf_add_local_field_group([
-        'key'    => 'group_magnet_video',
-        'title'  => 'Video',
-        'fields' => [
-            ['key'=>'field_vid_title',    'label'=>'Título (opcional)',  'name'=>'vid_title',    'type'=>'text'],
-            ['key'=>'field_vid_text',     'label'=>'Texto (opcional)',   'name'=>'vid_text',     'type'=>'wysiwyg', 'toolbar'=>'basic', 'media_upload'=>0],
-            ['key'=>'field_vid_source',   'label'=>'Fuente del video',   'name'=>'vid_source',   'type'=>'button_group', 'choices'=>['youtube'=>'YouTube','file'=>'Archivo'], 'default_value'=>'youtube'],
-            ['key'=>'field_vid_youtube',  'label'=>'URL de YouTube',     'name'=>'vid_youtube',  'type'=>'url', 'instructions'=>'Ej: https://www.youtube.com/watch?v=XXXXXXXXXXX o https://youtu.be/XXXXXXXXXXX', 'conditional_logic'=>$vid_is_youtube],
-            ['key'=>'field_vid_file',     'label'=>'Archivo de video',   'name'=>'vid_file',     'type'=>'file', 'return_format'=>'url', 'mime_types'=>'mp4,webm', 'instructions'=>'MP4 (H.264), idealmente menos de 30 MB.', 'conditional_logic'=>$vid_is_file],
-            ['key'=>'field_vid_poster',   'label'=>'Portada',            'name'=>'vid_poster',   'type'=>'image', 'return_format'=>'id', 'preview_size'=>'medium', 'instructions'=>'Proporción 16:9, ideal 1920×1080 px. Con YouTube es opcional: si se omite, se usa la miniatura del video.'],
-            ['key'=>'field_vid_bg_color', 'label'=>'Color de fondo',     'name'=>'vid_bg_color', 'type'=>'color_picker', 'default_value'=>'#D8E4EC'],
-        ],
-        'location' => [[['param'=>'block','operator'=>'==','value'=>'acf/video']]],
-    ]);
-
-    // Pricing — plan con toggle Monthly / Yearly; el botón va directo al Payment Link de Stripe
-    acf_add_local_field_group([
-        'key'    => 'group_magnet_pricing',
-        'title'  => 'Pricing',
-        'fields' => [
-            ['key'=>'field_pr_tab_content',    'label'=>'Contenido', 'type'=>'tab'],
-            ['key'=>'field_pr_intro',          'label'=>'Texto superior (opcional)', 'name'=>'pr_intro',       'type'=>'wysiwyg', 'toolbar'=>'basic', 'media_upload'=>0],
-            ['key'=>'field_pr_title',          'label'=>'Título',                    'name'=>'pr_title',       'type'=>'text', 'default_value'=>'Choose the best program for you!'],
-            ['key'=>'field_pr_plan_name',      'label'=>'Nombre del plan',           'name'=>'pr_plan_name',   'type'=>'text', 'default_value'=>'Magnet People', 'instructions'=>'Etiqueta sobre la card.'],
-            ['key'=>'field_pr_description',    'label'=>'Descripción',               'name'=>'pr_description', 'type'=>'textarea', 'rows'=>3],
-            [
-                'key'          => 'field_pr_features',
-                'label'        => 'Beneficios',
-                'name'         => 'pr_features',
-                'type'         => 'repeater',
-                'layout'       => 'table',
-                'button_label' => 'Agregar beneficio',
-                'sub_fields'   => [
-                    ['key'=>'field_pr_feature_text', 'label'=>'Beneficio', 'name'=>'feature_text', 'type'=>'text'],
-                ],
-            ],
-            ['key'=>'field_pr_btn_text',       'label'=>'Texto del botón',           'name'=>'pr_btn_text',    'type'=>'text', 'default_value'=>'Sign up now'],
-
-            ['key'=>'field_pr_tab_monthly',    'label'=>'Mensual', 'type'=>'tab'],
-            ['key'=>'field_pr_monthly_label',  'label'=>'Etiqueta del toggle',       'name'=>'pr_monthly_label',  'type'=>'text', 'default_value'=>'Monthly'],
-            ['key'=>'field_pr_monthly_price',  'label'=>'Precio',                    'name'=>'pr_monthly_price',  'type'=>'text', 'default_value'=>'$35'],
-            ['key'=>'field_pr_monthly_period', 'label'=>'Periodo',                   'name'=>'pr_monthly_period', 'type'=>'text', 'default_value'=>'/ month'],
-            ['key'=>'field_pr_monthly_url',    'label'=>'Link de pago (Stripe)',     'name'=>'pr_monthly_url',    'type'=>'url',  'default_value'=>'https://buy.stripe.com/4gM8wO0WvdLsdr2aJKdIA00'],
-
-            ['key'=>'field_pr_tab_yearly',     'label'=>'Anual', 'type'=>'tab'],
-            ['key'=>'field_pr_yearly_label',   'label'=>'Etiqueta del toggle',       'name'=>'pr_yearly_label',   'type'=>'text', 'default_value'=>'Yearly'],
-            ['key'=>'field_pr_yearly_price',   'label'=>'Precio',                    'name'=>'pr_yearly_price',   'type'=>'text', 'default_value'=>'$400', 'instructions'=>'Sin precio o sin link anual se oculta el toggle.'],
-            ['key'=>'field_pr_yearly_period',  'label'=>'Periodo',                   'name'=>'pr_yearly_period',  'type'=>'text', 'default_value'=>'/ year'],
-            ['key'=>'field_pr_yearly_url',     'label'=>'Link de pago (Stripe)',     'name'=>'pr_yearly_url',     'type'=>'url',  'default_value'=>'https://buy.stripe.com/14A7sKeNl7n472E6tudIA01'],
-
-            ['key'=>'field_pr_tab_style',      'label'=>'Estilo', 'type'=>'tab'],
-            ['key'=>'field_pr_bg_color',       'label'=>'Color de fondo',            'name'=>'pr_bg_color',       'type'=>'color_picker', 'default_value'=>'#D8E4EC'],
-            ['key'=>'field_pr_gradient_color', 'label'=>'Color del degradado',       'name'=>'pr_gradient_color', 'type'=>'color_picker', 'default_value'=>'#00D4FF'],
-        ],
-        'location' => [[['param'=>'block','operator'=>'==','value'=>'acf/pricing']]],
-    ]);
 }
 
 // SVG icons inline
