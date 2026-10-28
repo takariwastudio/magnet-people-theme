@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "magnet/contact-form",
+  "title": "Magnet Contact Form",
+  "description": "Título, texto introductorio y formulario (shortcode) dentro de una tarjeta blanca sobre fondo ilustrado.",
+  "category": "magnet",
+  "icon": "email",
+  "acf": {
+    "mode": "auto",
+    "renderTemplate": "blocks/contact-form/render.php"
+  },
+  "supports": { "anchor": true, "align": ["full"] },
+  "example": {}
+}

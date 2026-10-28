@@ -1,0 +1,251 @@
+/* =============================================
+   Block: magnet/contact-form
+   Magnet People v2 — Takariwa Studio
+   Estiliza el markup de Contact Form 7 (plantilla con clases magnet-form__*)
+   ============================================= */
+
+.magnet-contact {
+  padding: clamp(40px, 4vw, 60px) 0 clamp(64px, 7vw, 120px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Encabezado: mismo ancho que .container */
+.magnet-contact__header {
+  max-width: calc(var(--max-w, 1160px) + 48px);
+  margin: 0 auto clamp(56px, 8vw, 150px);
+  padding-inline: 24px;
+  box-sizing: border-box;
+}
+
+.magnet-contact__title {
+  font-family: "Poppins", "Nunito Sans", sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 3.4vw, 3.5rem);
+  line-height: 1.1;
+  color: var(--black, #1a1a1a);
+  margin: 0 0 clamp(24px, 3vw, 48px);
+}
+
+.magnet-contact__intro {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1.125rem, 1.6vw, 1.625rem);
+  line-height: 1.55;
+  color: var(--black, #1a1a1a);
+  margin: 0;
+}
+
+/* Franja azul con textura */
+.magnet-contact__band {
+  width: min(1620px, 100% - 40px);
+  margin: 0 auto;
+  padding: 44px clamp(16px, 12.5vw, 237px) 53px;
+  border-radius: clamp(28px, 3.2vw, 60px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+
+/* Tarjeta blanca */
+.magnet-contact__card {
+  max-width: 1146px;
+  margin: 0 auto;
+  padding: clamp(32px, 3.4vw, 64px) clamp(20px, 4vw, 64px) 30px;
+  background: var(--white, #ffffff);
+  border-radius: clamp(20px, 2.2vw, 40px);
+  box-sizing: border-box;
+}
+
+.magnet-contact__empty {
+  margin: 0;
+  text-align: center;
+  color: var(--gray-600, #5a5a5a);
+}
+
+/* ── Formulario ── */
+.magnet-contact__form .wpcf7 form,
+.magnet-contact__form form {
+  margin: 0;
+}
+
+.magnet-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 300px));
+  justify-content: center;
+  column-gap: clamp(24px, 8.5vw, 163px);
+  row-gap: 38px;
+}
+
+.magnet-form__field {
+  display: block;
+  margin: 0;
+}
+
+.magnet-form__field--message {
+  max-width: 470px;
+  margin: 35px auto 0;
+}
+
+/* Etiqueta solo para lectores de pantalla (el diseño usa placeholders) */
+.magnet-form__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.magnet-contact__form .wpcf7-form-control-wrap {
+  display: block;
+}
+
+.magnet-contact__form input[type="text"],
+.magnet-contact__form input[type="email"],
+.magnet-contact__form input[type="tel"],
+.magnet-contact__form textarea {
+  display: block;
+  width: 100%;
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+  color: var(--black, #1a1a1a);
+  background: var(--white, #ffffff);
+  border: 1px solid #cfcfcf;
+  box-sizing: border-box;
+  transition: border-color var(--ease, 0.2s ease), box-shadow var(--ease, 0.2s ease);
+}
+
+.magnet-contact__form input[type="text"],
+.magnet-contact__form input[type="email"],
+.magnet-contact__form input[type="tel"] {
+  height: 68px;
+  padding: 0 24px;
+  font-size: 1.1875rem;
+  text-align: center;
+  border-radius: var(--r-full, 9999px);
+}
+
+.magnet-contact__form textarea {
+  height: 110px;
+  min-height: 80px;
+  padding: 16px 22px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  border-radius: 24px;
+  resize: vertical;
+}
+
+.magnet-contact__form input::placeholder,
+.magnet-contact__form textarea::placeholder {
+  color: var(--black, #1a1a1a);
+  opacity: 1;
+}
+
+.magnet-contact__form input:focus,
+.magnet-contact__form textarea:focus {
+  outline: none;
+  border-color: var(--black, #1a1a1a);
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.08);
+}
+
+/* Botón */
+.magnet-form__actions {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.magnet-contact__form input[type="submit"] {
+  min-width: 200px;
+  height: 50px;
+  padding: 0 32px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--white, #ffffff);
+  background: var(--red, #e31e24);
+  border: 0;
+  border-radius: var(--r-full, 9999px);
+  cursor: pointer;
+  transition: background-color var(--ease, 0.2s ease), transform var(--ease, 0.2s ease), box-shadow var(--ease, 0.2s ease);
+}
+
+.magnet-contact__form input[type="submit"]:hover,
+.magnet-contact__form input[type="submit"]:focus-visible {
+  background: var(--darkred, #c0181d);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(227, 30, 36, 0.35);
+}
+
+.magnet-contact__form input[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Spinner de CF7: a la derecha del botón sin moverlo */
+.magnet-contact__form .wpcf7-spinner {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 116px);
+  margin: -12px 0 0;
+}
+
+/* Mensajes de validación y respuesta */
+.magnet-contact__form .wpcf7-not-valid {
+  border-color: var(--red, #e31e24);
+}
+
+.magnet-contact__form .wpcf7-not-valid-tip {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--red, #e31e24);
+}
+
+.magnet-contact__form .wpcf7 form .wpcf7-response-output {
+  max-width: 470px;
+  margin: 24px auto 0;
+  padding: 12px 20px;
+  font-size: 0.9375rem;
+  text-align: center;
+  border-radius: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .magnet-contact__band {
+    padding: 24px 16px;
+  }
+
+  .magnet-form__grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+  }
+
+  .magnet-form__field--message {
+    max-width: none;
+    margin-top: 16px;
+  }
+
+  .magnet-contact__form input[type="text"],
+  .magnet-contact__form input[type="email"],
+  .magnet-contact__form input[type="tel"] {
+    height: 56px;
+    font-size: 1rem;
+  }
+
+  .magnet-form__actions {
+    margin-top: 32px;
+  }
+
+  .magnet-contact__form .wpcf7-spinner {
+    left: auto;
+    right: 0;
+  }
+}
