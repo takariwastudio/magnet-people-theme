@@ -2,6 +2,8 @@
 /**
  * Magnet People — functions.php v2
  * Takariwa Studio
+ *
+ * @version 2.2.0 — debe coincidir con "Version" de style.css
  */
 
 // Versión del tema (de style.css): se usa para invalidar la caché de CSS/JS en cada release
