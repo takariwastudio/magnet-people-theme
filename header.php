@@ -39,7 +39,7 @@
         <!-- Acciones -->
         <div class="site-header__actions">
             <?php if (is_user_logged_in()) : ?>
-                <a href="<?php echo esc_url(home_url('/cuenta/')); ?>" class="btn btn--ghost">Mi cuenta</a>
+                <a href="#account" class="btn btn--ghost" data-account-open>Account</a>
                 <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="btn btn--ghost">Sign out</a>
             <?php else : ?>
                 <a href="#" class="btn btn--ghost" id="signinBtn">Sign in</a>
@@ -63,7 +63,7 @@
     <a href="<?php echo home_url('/blog/'); ?>">Blog</a>
     <a href="<?php echo home_url('/contacto/'); ?>">Let's Talk!</a>
     <?php if (is_user_logged_in()) : ?>
-        <a href="<?php echo esc_url(home_url('/cuenta/')); ?>" class="btn btn--ghost">Mi cuenta</a>
+        <a href="#account" class="btn btn--ghost" data-account-open>Account</a>
         <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="btn btn--ghost">Sign out</a>
     <?php else : ?>
         <a href="#" class="btn btn--ghost" id="signinBtnMobile">Sign in</a>

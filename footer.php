@@ -62,6 +62,7 @@
 </footer>
 
 <?php get_template_part('signup-modal'); ?>
+<?php get_template_part('account-modal'); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

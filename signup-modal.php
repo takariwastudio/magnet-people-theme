@@ -115,51 +115,63 @@ if ( is_user_logged_in() ) return;
             </svg>
         </button>
 
-        <!-- Título -->
-        <h2 class="magnet-modal__title" id="signinModalTitle">Sign in</h2>
+        <!-- Paso 1: email → se envía código + enlace por correo -->
+        <div class="signin-step" id="signinStepEmail">
+            <h2 class="magnet-modal__title" id="signinModalTitle">Sign in</h2>
 
-        <!-- Formulario — paso 1: email -->
-        <form class="signin-form" id="signinForm" method="post" action="<?php echo esc_url( wp_login_url() ); ?>">
-            <?php wp_nonce_field('signin_nonce', 'signin_nonce_field'); ?>
-            <input type="hidden" name="redirect_to" value="<?php echo esc_attr( home_url('/cuenta/') ); ?>">
+            <form class="signin-form" id="signinForm" novalidate>
+                <div class="signin-form__field">
+                    <label for="signinEmail" class="signin-form__label">Email</label>
+                    <input
+                        type="email"
+                        id="signinEmail"
+                        name="email"
+                        class="signin-form__input"
+                        placeholder="jamie@example.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
 
-            <div class="signin-form__field">
-                <label for="signinEmail" class="signin-form__label">Email</label>
+                <p class="signin-form__error" id="signinError" role="alert" hidden></p>
+
+                <button type="submit" class="signin-form__btn" id="signinContinueBtn">
+                    Continue
+                </button>
+            </form>
+
+            <p class="magnet-modal__footer-link">
+                Don't have an account?
+                <a href="#" id="switchToSignup">Sign up</a>
+            </p>
+        </div>
+
+        <!-- Paso 2: código de 6 dígitos (o clic en el enlace del correo) -->
+        <div class="signin-step signin-step--code" id="signinStepCode" hidden>
+            <span class="signin-step__icon"><?php echo magnet_icon('mail'); ?></span>
+            <h2 class="magnet-modal__title">Now check your email!</h2>
+            <p class="signin-step__text">
+                If you have an account, an email has been sent to <span id="signinSentTo"></span>.
+                Click the link inside or enter your code below.
+            </p>
+
+            <form class="signin-form" id="signinCodeForm" novalidate>
                 <input
-                    type="email"
-                    id="signinEmail"
-                    name="log"
-                    class="signin-form__input"
-                    placeholder="jamie@example.com"
-                    required
-                    autocomplete="email"
+                    type="text"
+                    id="signinCode"
+                    name="code"
+                    class="signin-form__input signin-form__input--code"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    maxlength="6"
+                    placeholder="– – – – – –"
+                    aria-label="Sign-in code"
                 >
-            </div>
+                <p class="signin-form__error" id="signinCodeError" role="alert" hidden></p>
 
-            <div class="signin-form__field signin-form__field--password" id="signinPasswordRow" hidden>
-                <label for="signinPassword" class="signin-form__label">Password</label>
-                <input
-                    type="password"
-                    id="signinPassword"
-                    name="pwd"
-                    class="signin-form__input"
-                    placeholder="••••••••"
-                    autocomplete="current-password"
-                >
-                <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" class="signin-form__forgot" tabindex="-1">
-                    Forgot password?
-                </a>
-            </div>
-
-            <button type="submit" class="signin-form__btn" id="signinContinueBtn">
-                Continue
-            </button>
-        </form>
-
-        <p class="magnet-modal__footer-link">
-            Don't have an account?
-            <a href="#" id="switchToSignup">Sign up</a>
-        </p>
+                <a href="#" class="magnet-btn-outline" id="signinOpenMail" target="_blank" rel="noopener" hidden></a>
+            </form>
+        </div>
 
     </div><!-- /.magnet-modal__box -->
 </div><!-- /#signinModal -->

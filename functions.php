@@ -3,7 +3,7 @@
  * Magnet People — functions.php v2
  * Takariwa Studio
  *
- * @version 2.2.1 — debe coincidir con "Version" de style.css
+ * @version 2.3.0 — debe coincidir con "Version" de style.css
  */
 
 // Versión del tema (de style.css): se usa para invalidar la caché de CSS/JS en cada release
@@ -62,11 +62,23 @@ add_action('wp_enqueue_scripts', function () {
         MAGNET_VERSION,
         true
     );
+    wp_enqueue_script(
+        'magnet-account',
+        get_template_directory_uri() . '/assets/js/account.js',
+        ['magnet-main'],
+        MAGNET_VERSION,
+        true
+    );
     wp_localize_script('magnet-main', 'magnetData', [
-        'joinUrl'  => home_url('/membresia/'),
-        'loginUrl' => wp_login_url(),
+        'joinUrl'      => home_url('/membresia/'),
+        'loginUrl'     => wp_login_url(),
+        'ajaxUrl'      => admin_url('admin-ajax.php'),
+        'loginNonce'   => wp_create_nonce('magnet_login'),
+        'accountNonce' => is_user_logged_in() ? wp_create_nonce('magnet_account') : '',
     ]);
 });
+
+require get_template_directory() . '/inc/members.php';
 
 add_filter('excerpt_length', fn() => 20);
 add_filter('excerpt_more', fn() => '');
@@ -521,6 +533,11 @@ function magnet_icon($name, $class = '') {
         'linkedin'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
         'bolt'      => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>',
         'check'     => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>',
+        'mail'      => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><rect x="3" y="5.25" width="18" height="13.5" rx="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75L12 12.75l8.25-6"/></svg>',
+        'avatar'    => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><circle cx="12" cy="12" r="10.5"/><circle cx="12" cy="9.5" r="3.75"/><path stroke-linecap="round" d="M5.25 19.25c1.25-2.6 3.85-4.25 6.75-4.25s5.5 1.65 6.75 4.25"/></svg>',
+        'gift'      => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><rect x="3.75" y="8.25" width="16.5" height="4" rx="1"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 12.25v7.5a1 1 0 001 1h11.5a1 1 0 001-1v-7.5M12 8.25v12.5M12 8.25S10.5 3.75 8.25 3.75a2.25 2.25 0 000 4.5H12zm0 0s1.5-4.5 3.75-4.5a2.25 2.25 0 010 4.5H12z"/></svg>',
+        'back'      => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.5 4.5L8 12l7.5 7.5"/></svg>',
+        'close'     => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.25" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20L20 4M4 4l16 16"/></svg>',
     ];
     $svg = $icons[$name] ?? '';
     if ($class) {

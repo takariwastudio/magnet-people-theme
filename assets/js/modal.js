@@ -24,8 +24,15 @@
   const signinClose = document.getElementById("signinModalClose");
   const signinForm = document.getElementById("signinForm");
   const signinEmail = document.getElementById("signinEmail");
-  const signinPasswordRow = document.getElementById("signinPasswordRow");
+  const signinError = document.getElementById("signinError");
   const signinContinueBtn = document.getElementById("signinContinueBtn");
+  const signinStepEmail = document.getElementById("signinStepEmail");
+  const signinStepCode = document.getElementById("signinStepCode");
+  const signinSentTo = document.getElementById("signinSentTo");
+  const signinCodeForm = document.getElementById("signinCodeForm");
+  const signinCode = document.getElementById("signinCode");
+  const signinCodeError = document.getElementById("signinCodeError");
+  const signinOpenMail = document.getElementById("signinOpenMail");
 
   // Triggers
   const floatBtn = document.getElementById("signupFloatBtn"); // botón flotante
@@ -157,34 +164,110 @@
     });
   });
 
-  /* ── Sign-in form: paso 1 email → paso 2 password ── */
-  var emailSubmitted = false;
+  /* ── Sign-in sin contraseña: paso 1 email → paso 2 código del correo ── */
+  let signinAddress = "";
 
-  signinForm.addEventListener("submit", function (e) {
-    // Primera vez que se pulsa "Continue": mostrar campo password
-    if (!emailSubmitted) {
-      e.preventDefault();
-      if (!signinEmail.value || !signinEmail.checkValidity()) {
-        signinEmail.reportValidity();
-        return;
-      }
-      // Revelar password
-      signinPasswordRow.hidden = false;
-      signinContinueBtn.textContent = "Sign in";
-      emailSubmitted = true;
-      document.getElementById("signinPassword").focus();
+  async function post(action, fields) {
+    const body = new FormData();
+    body.append("action", action);
+    body.append("nonce", magnetData.loginNonce);
+    Object.keys(fields).forEach(function (key) {
+      body.append(key, fields[key]);
+    });
+    const res = await fetch(magnetData.ajaxUrl, { method: "POST", body: body, credentials: "same-origin" });
+    return res.json();
+  }
+
+  function showError(el, message) {
+    el.textContent = message || "";
+    el.hidden = !message;
+  }
+
+  signinForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    if (!signinEmail.value || !signinEmail.checkValidity()) {
+      signinEmail.reportValidity();
       return;
     }
-    // Segunda vez: submit real a wp-login.php
-    // El form tiene action="wp-login.php" y los campos log + pwd estándar de WP
+    if (signinContinueBtn.disabled) return;
+
+    showError(signinError, "");
+    signinContinueBtn.disabled = true;
+    signinContinueBtn.textContent = "Sending…";
+
+    try {
+      const json = await post("magnet_send_login", {
+        email: signinEmail.value.trim(),
+        redirect: window.location.href,
+      });
+      if (!json.success) throw new Error(json.data && json.data.message);
+
+      signinAddress = signinEmail.value.trim();
+      signinSentTo.textContent = signinAddress;
+
+      const provider = json.data && json.data.provider;
+      signinOpenMail.hidden = !provider;
+      if (provider) {
+        signinOpenMail.href = provider.url;
+        signinOpenMail.textContent = "Open " + provider.name;
+      }
+
+      signinStepEmail.hidden = true;
+      signinStepCode.hidden = false;
+      signinCode.focus();
+    } catch (err) {
+      showError(signinError, err.message || "Something went wrong. Please try again.");
+    }
+
+    signinContinueBtn.disabled = false;
+    signinContinueBtn.textContent = "Continue";
   });
+
+  // Solo dígitos; al llegar a 6 se envía solo
+  signinCode.addEventListener("input", function () {
+    signinCode.value = signinCode.value.replace(/\D/g, "").slice(0, 6);
+    showError(signinCodeError, "");
+    if (signinCode.value.length === 6) verifyCode();
+  });
+
+  signinCodeForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    verifyCode();
+  });
+
+  async function verifyCode() {
+    if (signinCode.readOnly) return;
+    if (signinCode.value.length !== 6) {
+      showError(signinCodeError, "Enter the 6-digit code from the email.");
+      return;
+    }
+
+    signinCode.readOnly = true;
+    try {
+      const json = await post("magnet_verify_code", { email: signinAddress, code: signinCode.value });
+      if (!json.success) throw new Error(json.data && json.data.message);
+
+      // Recargar ya logueado; account.js muestra el aviso "Welcome back!"
+      const url = new URL(window.location.href);
+      url.searchParams.set("magnet_notice", "signin");
+      window.location.href = url.toString();
+      return;
+    } catch (err) {
+      showError(signinCodeError, err.message || "Something went wrong. Please try again.");
+      signinCode.select();
+    }
+    signinCode.readOnly = false;
+  }
 
   // Resetear estado al cerrar el modal de signin
   function resetSigninForm() {
     signinForm.reset();
-    signinPasswordRow.hidden = true;
-    signinContinueBtn.textContent = "Continue";
-    emailSubmitted = false;
+    signinCodeForm.reset();
+    showError(signinError, "");
+    showError(signinCodeError, "");
+    signinStepEmail.hidden = false;
+    signinStepCode.hidden = true;
+    signinAddress = "";
   }
 
   signinClose.addEventListener("click", resetSigninForm);

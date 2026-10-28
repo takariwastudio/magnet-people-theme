@@ -421,7 +421,639 @@
   flex-shrink: 0;
 }
 
+/* Error bajo los campos */
+.signin-form__error {
+  font-size: 0.85rem;
+  color: #dc2327;
+  margin: -12px 0 0;
+}
+
+/* Paso 2: "Now check your email!" */
+.signin-step--code {
+  text-align: center;
+}
+.signin-step__icon {
+  display: inline-flex;
+  color: #dc2327;
+  margin-bottom: 12px;
+}
+.signin-step__icon svg {
+  width: 28px;
+  height: 28px;
+}
+.signin-step--code .magnet-modal__title {
+  margin-bottom: 12px;
+}
+.signin-step__text {
+  font-size: 0.95rem;
+  color: #5a5a5a;
+  line-height: 1.55;
+  margin: 0 0 24px;
+}
+.signin-step--code .signin-form {
+  margin-bottom: 0;
+}
+.signin-form__input--code {
+  text-align: center;
+  font-size: 1.4rem;
+  letter-spacing: 0.5em;
+  padding: 14px 12px;
+}
+.signin-form__input--code::placeholder {
+  color: #a8a8a8;
+}
+
+/* Botón secundario con borde (Open Outlook, Sign out, Unsubscribe…) */
+.magnet-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+.magnet-btn-outline[hidden] {
+  display: none;
+}
+.magnet-btn-outline:hover {
+  border-color: #bdbdbd;
+  color: #1a1a1a;
+}
+.magnet-btn-outline--sm {
+  width: auto;
+  padding: 10px 18px;
+}
+.magnet-btn-outline--red,
+.magnet-btn-outline--red:hover {
+  color: #dc2327;
+}
+
+/* ════════════════════════════════════════════
+   ACCOUNT MODAL — usuario logueado
+   ════════════════════════════════════════════ */
+
+/* Botón flotante: círculo rojo con avatar */
+.account-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 300;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dc2327;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(220, 35, 39, 0.35);
+  transition: transform 0.15s, background 0.2s;
+}
+.account-float:hover {
+  background: #c0181d;
+  color: #fff;
+  transform: translateY(-2px);
+}
+.account-float svg {
+  width: 34px;
+  height: 34px;
+}
+
+/* Vista principal */
+.account-view[data-view="home"] {
+  text-align: center;
+}
+.account-view__avatar {
+  display: inline-flex;
+  color: #dc2327;
+  margin-bottom: 8px;
+}
+.account-view__avatar svg {
+  width: 56px;
+  height: 56px;
+}
+.account-modal .account-view[data-view="home"] .magnet-modal__title {
+  margin-bottom: 24px;
+}
+.account-view__text {
+  font-size: 0.95rem;
+  color: #5a5a5a;
+  line-height: 1.55;
+  margin: -8px 0 24px;
+}
+.account-view__cta {
+  margin-bottom: 40px;
+}
+.account-view__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+/* Cabecera de sub-vistas: Back · título · (X del modal) */
+.account-view__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  margin: -8px 0 32px;
+  padding: 0 72px;
+}
+.account-view__back {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  color: #dc2327;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.account-view__back svg {
+  width: 18px;
+  height: 18px;
+}
+.account-view__title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  text-align: center;
+  margin: 0;
+}
+.account-modal .magnet-modal__close {
+  top: 32px;
+}
+
+/* Lista de filas con acción a la derecha */
+.account-list {
+  text-align: left;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.account-list + .account-list {
+  margin-top: 16px;
+}
+.account-list__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+}
+.account-list__row + .account-list__row {
+  border-top: 1px solid #e8e8e8;
+}
+.account-list__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.account-list__label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+.account-list__sub {
+  font-size: 0.9rem;
+  color: #7a7a7a;
+  line-height: 1.4;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.account-list__action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  color: #dc2327;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.account-list__action:hover {
+  text-decoration: underline;
+}
+.account-list__action svg {
+  width: 16px;
+  height: 16px;
+}
+.account-list__help {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #f7f7f7;
+  border-top: 1px solid #e8e8e8;
+  font-size: 0.85rem;
+  color: #5a5a5a;
+}
+.account-list__help a {
+  color: #dc2327;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Account settings */
+.account-modal #accountProfileForm .signin-form__input {
+  border-color: #e0e0e0;
+}
+.account-modal #accountProfileForm .signin-form__btn {
+  margin-top: 8px;
+}
+
+/* Email preferences: toggle */
+label.account-list__row {
+  align-items: flex-start;
+  cursor: pointer;
+}
+.account-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  position: relative;
+  width: 44px;
+  height: 24px;
+  margin: 0;
+  border-radius: 100px;
+  background: #e0e0e0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.account-toggle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+.account-toggle:checked {
+  background: #dc2327;
+}
+.account-toggle:checked::after {
+  transform: translateX(20px);
+}
+.account-toggle:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
+}
+#accountUnsubscribeAll {
+  margin-top: 40px;
+}
+
+/* Change plan / View plans */
+.account-plan {
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 28px 32px 32px;
+}
+.account-plan + .account-plan {
+  margin-top: 16px;
+}
+.account-plan__name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #dc2327;
+  margin: 0 0 12px;
+}
+.account-plan__price {
+  display: flex;
+  align-items: baseline;
+  margin: 0 0 16px;
+  color: #1a1a1a;
+}
+.account-plan__currency {
+  font-size: 1.2rem;
+  font-weight: 700;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.account-plan__amount {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.account-plan__period {
+  font-size: 1rem;
+  color: #5a5a5a;
+  margin-left: 6px;
+}
+.account-plan__tagline {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+.account-plan__btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 28px;
+}
+.account-plan__btn:hover {
+  color: #fff;
+}
+
+/* Lista de beneficios (plan y gift) */
+.account-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.account-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: #3a3a3a;
+  line-height: 1.45;
+}
+.account-features svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #1a1a1a;
+}
+
+/* ── Gift a membership: el modal pasa a pantalla completa ── */
+.account-modal--full {
+  padding: 0;
+}
+.account-modal.account-modal--full .magnet-modal__box--sm {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.account-modal--full .magnet-modal__close {
+  top: 32px;
+  right: 40px;
+  color: #fff;
+  z-index: 2;
+}
+.account-modal--full .magnet-modal__close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+.account-modal--full .magnet-modal__close svg {
+  width: 32px;
+  height: 32px;
+}
+
+.gift:not([hidden]) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  min-height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.gift__main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px 48px;
+}
+.gift__back {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.gift__content {
+  width: 100%;
+  max-width: 500px;
+}
+.gift__title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+}
+.gift__subtitle {
+  font-size: 0.95rem;
+  color: #5a5a5a;
+  margin: 0 0 40px;
+}
+.gift__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5a5a5a;
+  margin: 0 0 12px;
+}
+.gift__duration {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+}
+.gift__plan {
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+  padding: 20px;
+}
+.gift__plan-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+.gift__plan-desc {
+  font-size: 0.85rem;
+  color: #5a5a5a;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+.gift__btn {
+  display: block;
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: #dc2327;
+  border-radius: 100px;
+  padding: 14px 24px;
+  margin-top: 24px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.gift__btn:hover {
+  background: #c0181d;
+  color: #fff;
+}
+
+.gift__aside {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #9e1a1e 0%, #dc2327 100%);
+  padding: 48px 24px;
+}
+.gift-card {
+  position: relative;
+  width: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 60% at 80% 20%, rgba(255, 255, 255, 0.18), transparent 60%),
+    linear-gradient(160deg, #e2474b 0%, #d6282d 100%);
+  color: #fff;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+}
+.gift-card__slot {
+  display: block;
+  width: 56px;
+  height: 10px;
+  border-radius: 100px;
+  background: #9e1a1e;
+  margin: 18px auto 0;
+}
+.gift-card__duration {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 40px 28px 2px;
+}
+.gift-card__plan {
+  font-size: 0.95rem;
+  margin: 0 28px 110px;
+  opacity: 0.9;
+}
+.gift-card__meta {
+  margin: 0 28px 24px;
+  font-size: 0.8rem;
+}
+.gift-card__meta dt {
+  opacity: 0.8;
+  margin-top: 12px;
+}
+.gift-card__meta dd {
+  font-weight: 700;
+  margin: 2px 0 0;
+}
+.gift-card__brand {
+  background: #f5f5f5;
+  color: #1a1a1a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 18px;
+}
+
+/* ── Toast (aviso arriba al centro) ── */
+.magnet-toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  z-index: 1000;
+  width: min(700px, calc(100% - 32px));
+  box-sizing: border-box;
+  padding: 22px 24px;
+  border-radius: 16px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1a1a1a;
+  background: #61d6ab;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translate(-50%, -16px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+.magnet-toast--error {
+  background: #f8d7d8;
+}
+.magnet-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 /* ── Responsive ── */
+@media (max-width: 900px) {
+  .gift:not([hidden]) {
+    grid-template-columns: 1fr;
+  }
+  .gift__aside {
+    order: -1;
+    padding: 72px 24px 40px;
+  }
+  .account-modal--full .magnet-modal__close {
+    top: 28px;
+    right: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .account-view__head {
+    padding: 0 56px;
+  }
+  .account-view__title {
+    font-size: 1.25rem;
+  }
+  .account-modal .magnet-modal__close {
+    top: 20px;
+  }
+  .account-plan {
+    padding: 24px 20px;
+  }
+  .account-float {
+    bottom: 20px;
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
 @media (max-width: 600px) {
   .magnet-modal__box {
     padding: 40px 20px 28px;
