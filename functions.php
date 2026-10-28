@@ -490,20 +490,6 @@ function magnet_register_acf_fields() {
         ],
         'location' => [[['param'=>'block','operator'=>'==','value'=>'magnet/image-banner']]],
     ]);
-
-    // Contact Form — título, intro y formulario de Contact Form 7 sobre fondo ilustrado
-    acf_add_local_field_group([
-        'key'    => 'group_magnet_contact_form',
-        'title'  => 'Contact Form',
-        'fields' => [
-            ['key'=>'field_cf_title',     'label'=>'Título',                 'name'=>'cf_title',     'type'=>'text', 'default_value'=>"Let's talk"],
-            ['key'=>'field_cf_intro',     'label'=>'Texto introductorio',    'name'=>'cf_intro',     'type'=>'textarea', 'rows'=>3],
-            ['key'=>'field_cf_shortcode', 'label'=>'Shortcode del formulario','name'=>'cf_shortcode', 'type'=>'text', 'instructions'=>'Copia el shortcode desde Contacto → Formularios de contacto. Ej: [contact-form-7 id="abc1234" title="Let\'s Talk"]'],
-            ['key'=>'field_cf_bg_color',  'label'=>'Color de fondo',         'name'=>'cf_bg_color',  'type'=>'color_picker', 'default_value'=>'#9DC8D8'],
-            ['key'=>'field_cf_bg_image',  'label'=>'Imagen de fondo',        'name'=>'cf_bg_image',  'type'=>'image', 'return_format'=>'id', 'preview_size'=>'medium', 'instructions'=>'Textura azul con manchas rojas. Ideal 3240×1220 px (se recorta con cover).'],
-        ],
-        'location' => [[['param'=>'block','operator'=>'==','value'=>'acf/contact-form']]],
-    ]);
 }
 
 // Contact Form 7: sin <p>/<br> automáticos, el layout lo da la plantilla del formulario
