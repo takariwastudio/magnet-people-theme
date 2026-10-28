@@ -1,0 +1,51 @@
+name: Deploy theme to Bluehost
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check theme path
+        env:
+          THEME_PATH: ${{ secrets.THEME_PATH }}
+        run: |
+          case "$THEME_PATH" in
+            */wp-content/themes/magnet-people-v2) echo "Theme path OK" ;;
+            *) echo "THEME_PATH must end in /wp-content/themes/magnet-people-v2"; exit 1 ;;
+          esac
+
+      - name: Set up SSH key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          THEME_PATH: ${{ secrets.THEME_PATH }}
+        run: |
+          rsync -avz \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            -e "ssh -p $SSH_PORT -i ~/.ssh/deploy_key" \
+            ./ "$SSH_USER@$SSH_HOST:$THEME_PATH/"
